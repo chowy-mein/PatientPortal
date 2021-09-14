@@ -55,7 +55,7 @@ Project Overview Members
 2.
 
 User's Guide/Walkthrough Members
-1.
+1. Mark Ashinhust  
 2.
 3.
 
