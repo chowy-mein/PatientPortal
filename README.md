@@ -44,7 +44,7 @@ The amount of members assigned to a certain task will vary, however, the amount 
 
 __Phase 1 Roles__  
 
-Scrum Master = Tanishq Mor
+Scrum Master = Tanishq Mor  
 Team Leader = Mark Ashinhust
 
 Cover Page Member  
