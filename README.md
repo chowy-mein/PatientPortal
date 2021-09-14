@@ -1,4 +1,4 @@
-# Phase1_DoctorsOffice
+# Phase 1 
 Phase 1 Deliverable for our Pediatric Doctors Office design
 
 Phase 1 includes team formation, documentation of requirements and initial user guide for the project  
