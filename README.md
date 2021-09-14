@@ -1,4 +1,4 @@
-# Phase1_DoctorsOffice
+# Phase 1 
 Phase 1 Deliverable for our Pediatric Doctors Office design
 
 Phase 1 includes team formation, documentation of requirements and initial user guide for the project  
@@ -25,16 +25,16 @@ However, we will work on all of these in their own separate files before we conc
 
 ## Explanations
 
-1. Cover Page  
+1. **Cover Page**  
 - This portion is worth 5 points, should be completed by one person. This accounts for less than 10% of the total points for this phase.  
 
-2. Project Overview
+2. **Project Overview**
 - This portion is worth 20/65 points, and therefore should be completed by at least two people. This accounts for 31% of this phase project points.  
 
-3. User's Guide/Walkthrough  
+3. **User's Guide/Walkthrough**  
 - This is the largest portion of this phase and therefore should be completed by at least 3/5 team members. This portion accounts for ~46% of the total points for this phase.  
 
-4. Credit Sheet  
+4. **Credit Sheet**  
 - Same as the cover page, should only be done by one person and is worth 5 points (<10%).  
 
 ## Team Roles  
@@ -44,14 +44,14 @@ The amount of members assigned to a certain task will vary, however, the amount 
 
 __Phase 1 Roles__  
 
-Scrum Master = Tanishq Mor
+Scrum Master = Tanishq Mor  
 Team Leader = Mark Ashinhust
 
 Cover Page Member  
 1.
 
 Project Overview Members  
-1.
+1.  
 2.
 
 User's Guide/Walkthrough Members
