@@ -1,4 +1,4 @@
-# Phase 1 
+# Phase 1
 Phase 1 Deliverable for our Pediatric Doctors Office design
 
 Phase 1 includes team formation, documentation of requirements and initial user guide for the project  
@@ -56,7 +56,7 @@ Project Overview Members
 
 User's Guide/Walkthrough Members
 1. Mark Ashinhust  
-2.
+2. Sara 
 3.
 
 Credit Sheet Member  
