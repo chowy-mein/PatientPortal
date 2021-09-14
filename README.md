@@ -48,19 +48,20 @@ Scrum Master = Tanishq Mor
 Team Leader = Mark Ashinhust
 
 Cover Page Member  
-1.
+1. Mark
 
 Project Overview Members  
-1.  
-2.
+1. Tanishq
+2. Sammy
+3. Juls
 
 User's Guide/Walkthrough Members
-1. Mark Ashinhust  
-2. Sara 
-3.
+1. Mark  
+2. Sara
+3. Tanishq
 
 Credit Sheet Member  
-1.
+1. Juls
 
 
 ## Phase 1 Deliverable Updates  
