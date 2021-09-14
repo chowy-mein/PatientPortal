@@ -51,12 +51,12 @@ Cover Page Member
 1.
 
 Project Overview Members  
-1.
+1.  
 2.
 
 User's Guide/Walkthrough Members
-1.
-2.
+1.  
+2.  
 3.
 
 Credit Sheet Member  
