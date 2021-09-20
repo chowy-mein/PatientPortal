@@ -66,9 +66,10 @@ Credit Sheet Member
 
 ## Phase 1 Deliverable Updates  
 
-### Cover Page [Version 0.0.1]    
-TBW  
+### Cover Page [Version 1.0.1]     
+Cover page created and edited with Confluence as a part of Jira. This page now includes all team members names and our team number. This page will be the first item submitted documenting the members of this project.  
 
+! Updated Personal brief resumes in addition with this submission. These will be included as a part of the cover page to detail the previous experience of our members.  
 
 ### Project Overview [Version 0.0.1]  
 TBW  
