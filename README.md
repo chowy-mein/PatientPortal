@@ -71,8 +71,13 @@ Cover page created and edited with Confluence as a part of Jira. This page now i
 
 ! Updated Personal brief resumes in addition with this submission. These will be included as a part of the cover page to detail the previous experience of our members.  
 
-### Project Overview [Version 0.0.1]  
-TBW  
+### Project Overview [Version 1.0.1]  
+
+Project overview has been updated and is being updated with all information that pertains to completing the project on time and correctly.
+
+- Correct patient, nurse and doctor information  
+- Dependencies and development structure  
+
 
 ### User's Guide/Walkthrough [Version 0.0.1]  
 TBW  
