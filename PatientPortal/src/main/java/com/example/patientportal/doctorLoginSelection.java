@@ -8,6 +8,8 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
+import javafx.fxml.Initializable;
+
 public class doctorLoginSelection {
 
     @FXML
@@ -26,6 +28,7 @@ public class doctorLoginSelection {
     private Label successLabel;
 
 
+
     public void exitProgram(ActionEvent actionEvent) {
 
         Platform.exit(); //exit the application
@@ -38,7 +41,7 @@ public class doctorLoginSelection {
 
     }
 
-    private void checkLogin() throws IOException {
+    private void checkLogin() throws IOException { //validate login with SQL database
 
         PatientPortal m = new PatientPortal(); //create new portal object
 

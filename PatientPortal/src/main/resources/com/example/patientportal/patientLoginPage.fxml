@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.patientportal.patientLoginSelection">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem fx:id="backMenu" mnemonicParsing="false" onAction="#backPage" text="Back" />
               <MenuItem fx:id="patientLoginClose" mnemonicParsing="false" onAction="#endProgram" text="Close" />
             </items>
           </Menu>
@@ -40,7 +40,7 @@
                </image>
             </ImageView>
             <Label fx:id="noAccntLabel" layoutX="415.0" layoutY="75.0" prefHeight="29.0" prefWidth="99.0" text="No Account?" />
-            <Button fx:id="createAccntBttn" layoutX="386.0" layoutY="104.0" mnemonicParsing="false" onMouseClicked="#patientCreateAccount" prefHeight="22.0" prefWidth="128.0" text="Create Account" />
+            <Button fx:id="createAccntBttn" layoutX="386.0" layoutY="104.0" mnemonicParsing="false" onAction="#patientCreateAccount" prefHeight="22.0" prefWidth="128.0" text="Create Account" />
          </children>
       </AnchorPane>
    </bottom>
@@ -59,14 +59,19 @@
             </Label>
             <TextField fx:id="patientUsernameInput" layoutX="48.0" layoutY="108.0" />
             <PasswordField fx:id="patientPasswordInput" layoutX="252.0" layoutY="108.0" />
-            <Button fx:id="patientLoginButton" layoutX="462.0" layoutY="102.0" mnemonicParsing="false" onMouseClicked="#patientLogin" prefHeight="34.0" prefWidth="106.0" text="LOGIN">
+            <Button fx:id="patientLoginButton" layoutX="462.0" layoutY="102.0" mnemonicParsing="false" onAction="#patientLogin" prefHeight="34.0" prefWidth="106.0" text="LOGIN">
                <font>
-                  <Font name="Georgia" size="20.0" />
+                  <Font size="20.0" />
                </font>
             </Button>
-            <Label fx:id="welcomeLabel" layoutX="48.0" layoutY="6.0" prefHeight="80.0" prefWidth="218.0" text="Welcome">
+            <Label fx:id="welcomeLabel" layoutX="48.0" layoutY="6.0" prefHeight="80.0" prefWidth="228.0" text="Welcome">
                <font>
-                  <Font name="Freestyle Script" size="64.0" />
+                  <Font name="Brush Script MT Italic" size="64.0" />
+               </font>
+            </Label>
+            <Label fx:id="patientSuccessLabel" layoutX="241.0" layoutY="38.0" prefHeight="44.0" prefWidth="341.0">
+               <font>
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>
