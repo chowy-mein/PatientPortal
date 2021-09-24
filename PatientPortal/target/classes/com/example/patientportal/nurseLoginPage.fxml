@@ -19,6 +19,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
+                  <MenuItem fx:id="backItem" mnemonicParsing="false" onAction="#backPage" text="Back" />
               <MenuItem fx:id="nurseExitButton" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
             </items>
           </Menu>
@@ -61,6 +62,11 @@
                   <Font name="AdobeDevanagari-Regular" size="19.0" />
                </font>
             </Button>
+            <Label fx:id="successLabel" layoutX="38.0" layoutY="22.0" prefHeight="59.0" prefWidth="214.0" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </right>
