@@ -162,7 +162,7 @@ public class nurseMain {
 
             String temp = "";
 
-            if (tempInt > 140)
+            if (tempInt > 1000)
             {
 
 
