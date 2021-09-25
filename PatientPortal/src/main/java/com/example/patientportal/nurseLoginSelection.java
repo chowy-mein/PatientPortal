@@ -56,6 +56,8 @@ public class nurseLoginSelection {
             successLabel.setTextFill(Color.GREEN);
             successLabel.setText("Success!");
 
+            PatientPortal.changeScene("nurseMainPage.fxml");
+
 
         } else if (nurseUsernameInput.getText().isEmpty() && nursePasswordInput.getText().isEmpty()) {
 
