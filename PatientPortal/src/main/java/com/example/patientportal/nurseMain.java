@@ -199,4 +199,10 @@ public class nurseMain {
     }
 
 
+    public void patientSearch(ActionEvent actionEvent) throws IOException {
+
+        PatientPortal m = new PatientPortal();
+        PatientPortal.changeScene("login-selection.fxml"); //back to login for now, next is patient lookup
+
+    }
 }

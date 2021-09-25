@@ -4,7 +4,7 @@ module com.example.patientportal {
     requires javafx.web;
     requires javafx.graphics;
     requires java.sql;
-    requires mysql.connector.java;
+    // requires mysql.connector.java;
 
 
     requires org.controlsfx.controls;

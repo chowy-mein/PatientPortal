@@ -50,6 +50,7 @@ public class doctorLoginSelection {
 
             successLabel.setTextFill(Color.GREEN);
             successLabel.setText("Success!");
+            PatientPortal.changeScene("doctorMain.fxml");
 
         }
 
