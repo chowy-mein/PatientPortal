@@ -59,7 +59,7 @@
             </Label>
             <TextField fx:id="patientUsernameInput" layoutX="48.0" layoutY="108.0" />
             <PasswordField fx:id="patientPasswordInput" layoutX="252.0" layoutY="108.0" />
-            <Button fx:id="patientLoginButton" layoutX="462.0" layoutY="102.0" mnemonicParsing="false" onAction="#patientLogin" onMouseClicked="#patientLogin" prefHeight="34.0" prefWidth="106.0" text="LOGIN">
+            <Button fx:id="patientLoginButton" layoutX="462.0" layoutY="102.0" mnemonicParsing="false" onAction="#patientLogin" prefHeight="34.0" prefWidth="106.0" text="LOGIN">
                <font>
                   <Font size="20.0" />
                </font>

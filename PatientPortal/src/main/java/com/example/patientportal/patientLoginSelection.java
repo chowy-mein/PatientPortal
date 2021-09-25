@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.net.URI;
 
 
 public class patientLoginSelection {
@@ -32,15 +33,16 @@ public class patientLoginSelection {
 
     }
 
-    public void patientCreateAccount(ActionEvent actionEvent) {
+    public void patientCreateAccount(ActionEvent actionEvent) throws IOException {
 
-        Platform.exit();
+        java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/TopLevelDevils/Phase1_DoctorsOffice#readme"));
 
     }
 
     public void patientLogin(ActionEvent actionEvent) throws IOException {
 
         patientAuth();
+
     }
 
 
