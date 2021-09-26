@@ -13,6 +13,8 @@ import java.io.IOException;
 public class PatientPortal extends Application {
     private static Stage stg;
 
+    public String lastName, firstName, phoneNum;
+
     @Override
     public void start(Stage stage) throws IOException {
 

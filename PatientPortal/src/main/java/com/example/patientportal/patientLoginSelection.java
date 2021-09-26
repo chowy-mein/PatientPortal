@@ -35,7 +35,8 @@ public class patientLoginSelection {
 
     public void patientCreateAccount(ActionEvent actionEvent) throws IOException {
 
-        java.awt.Desktop.getDesktop().browse(URI.create("https://github.com/TopLevelDevils/Phase1_DoctorsOffice#readme"));
+        PatientPortal m = new PatientPortal();
+        PatientPortal.changeScene("createAccountPage.fxml");
 
     }
 
@@ -60,6 +61,8 @@ public class patientLoginSelection {
 
             patientSuccessLabel.setTextFill(Color.GREEN);
             patientSuccessLabel.setText("Success!");
+
+            PatientPortal.changeScene("patientMainPage.fxml");
 
 
         } else if (patientUsernameInput.getText().isEmpty() && patientPasswordInput.getText().isEmpty()) {
