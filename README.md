@@ -79,8 +79,20 @@ Project overview has been updated and is being updated with all information that
 - Dependencies and development structure  
 
 
-### User's Guide/Walkthrough [Version 0.0.1]  
-TBW  
+### User's Guide/Walkthrough [Version 1.0.1]
+The users guide and walkthrough went through multiple versions. This is comprised of all code mentioned here and within the 
+Patient Portal directory. This code is the main working of the JavaFX project and allows our application to be both functional
+and do its purpose. 
 
-### Credit Sheet [Version 0.0.1]  
-TBW  
+The main code of this project was done by Mark A. and the user's guide walkthrough was written by Sara and Samuel. Mark compiled 
+all code and information into one cohesive file [Final Submission](./Submission/Phase1_Submission_Final.pdf). 
+Project contributions can also be located within the ./Submissions/ directory.
+
+Version 1.0.1 houses the base code and data for the doctor, nurse and patient. Does NOT include a database for information and houses only
+minor amounts of error checking. The fundamental outline of the program has been written and should be refactored and edited 
+throughout the rest of this Agile Development Process.
+
+
+### Credit Sheet [Version 1.0.1]  
+One credit sheet was made by Juls. This sheet details the information of all those who were in the group and what they 
+personally contributed to the project. This contribution can be found at [Final Submission](./Submission/Phase1_Submission_Final.pdf)
