@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.patientportal.doctorLoginSelection">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="backMenu" mnemonicParsing="false" onAction="#backPage" text="Back" />
+              <MenuItem fx:id="doctorExit" mnemonicParsing="false" onAction="#exitProgram" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <right>
+      <AnchorPane prefHeight="373.0" prefWidth="310.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="373.0" fitWidth="311.0" pickOnBounds="true">
+               <image>
+                  <Image url="@../../../img/DocLoginImage.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </right>
+   <left>
+      <AnchorPane prefHeight="373.0" prefWidth="289.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="labelDoctorUsername" layoutX="22.0" layoutY="114.0" prefHeight="17.0" prefWidth="96.0" text="Username:">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelDoctorPassword" layoutX="22.0" layoutY="186.0" prefHeight="17.0" prefWidth="96.0" text="Password:">
+               <font>
+                  <Font size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="doctorUsernameInput" layoutX="22.0" layoutY="131.0" />
+            <PasswordField fx:id="doctorPasswordInput" layoutX="22.0" layoutY="203.0" />
+            <Button fx:id="doctorLoginButton" layoutX="22.0" layoutY="251.0" mnemonicParsing="false" onAction="#doctorLogin" prefHeight="30.0" prefWidth="100.0" text="Log In">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="successLabel" layoutX="24.0" layoutY="49.0" prefHeight="50.0" prefWidth="244.0">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </left>
+</BorderPane>

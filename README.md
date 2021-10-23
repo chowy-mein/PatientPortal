@@ -1,86 +1,123 @@
-# Phase 1
-Phase 1 Deliverable for our Pediatric Doctors Office design
+Phase 2 Home Page
 
-Phase 1 includes team formation, documentation of requirements and initial user guide for the project  
+Current Schedule - Phase 2 In-progress
 
-## Table of Contents
-1. Deliverables
-2. Explanation of Deliverables
-3. Team Roles
-4. Deliverable Version Updates
+PHASE 1 HAS BEEN COMPLETED AND SUBMITTED 60/60
 
----  
+ALL PAGES WRITTEN HERE CAN BE EXPORTED TO A PDF
 
-## Deliverables  
+Phase 2 Deliverable for our Pediatric Doctors Office design
 
-**Cover Page**  
-**Project Overview**  
-**User's Guide/Walkthrough**  
-**Credit Sheet**  
+Phase 2 includes Use Cases, Use Case Diagrams, Object Identification and CRC Diagrams, Initial Class Diagrams and Class Descriptions, Test Plan for Functional Testing and Initial Prototype Code
 
-Individual peer evaluation will be required and done separately  
+Table of Contents
 
-__All above items are to be submitted as a single combined PDF__  
-However, we will work on all of these in their own separate files before we concatenate them together  
+Deliverables
 
-## Explanations
+Explanation of Deliverables
 
-1. **Cover Page**  
-- This portion is worth 5 points, should be completed by one person. This accounts for less than 10% of the total points for this phase.  
+Team Roles
 
-2. **Project Overview**
-- This portion is worth 20/65 points, and therefore should be completed by at least two people. This accounts for 31% of this phase project points.  
+Deliverable Version Updates
 
-3. **User's Guide/Walkthrough**  
-- This is the largest portion of this phase and therefore should be completed by at least 3/5 team members. This portion accounts for ~46% of the total points for this phase.  
+Deliverables
 
-4. **Credit Sheet**  
-- Same as the cover page, should only be done by one person and is worth 5 points (<10%).  
+Use Cases and Use Case Digrams
 
-## Team Roles  
+Object Identification
 
-Using the Scrum Agile Development technique, a Scrum Master and a Team Leader will be assigned. From there members will be assigned to certain tasks out of these four to be completed.  
-The amount of members assigned to a certain task will vary, however, the amount will be correlated to the difficulty and value of work ahead.  
+CRC
 
-__Phase 1 Roles__  
+Initial Class Diagram and class descriptions
 
-Scrum Master = Tanishq Mor  
-Team Leader = Mark Ashinhust
+Test Plan and Functional Testing
 
-Cover Page Member  
-1. Mark
+Initial Prototype Code
 
-Project Overview Members  
-1. Tanishq
-2. Sammy
-3. Juls
+Individual peer evaluation will be required and done separately
 
-User's Guide/Walkthrough Members
-1. Mark  
-2. Sara
-3. Tanishq
+All above items are to be submitted as a single combined PDFHowever, we will work on all of these in their own separate files before we concatenate them together
 
-Credit Sheet Member  
-1. Juls
+Explanations
 
+Deliverable
 
-## Phase 1 Deliverable Updates  
+Description
 
-### Cover Page [Version 1.0.1]     
-Cover page created and edited with Confluence as a part of Jira. This page now includes all team members names and our team number. This page will be the first item submitted documenting the members of this project.  
+Use Cases
 
-! Updated Personal brief resumes in addition with this submission. These will be included as a part of the cover page to detail the previous experience of our members.  
+PDF Document that outlines and describes all of the use cases of our program
 
-### Project Overview [Version 1.0.1]  
+Use Case Diagram
 
-Project overview has been updated and is being updated with all information that pertains to completing the project on time and correctly.
+An Astah representation of our use cases and how these all interconnect. Dependencies between all actions and how all of the sub-menus work together.
 
-- Correct patient, nurse and doctor information  
-- Dependencies and development structure  
+Object Identification
 
+Identify all of the objects that are created within the program and their dependencies. Objects that consist of others, the parent and child relationships. For each use-case scenario from above to, identify objects involved in the scenario including the ones within the system/software.
 
-### User's Guide/Walkthrough [Version 0.0.1]  
-TBW  
+Initial Class Diagram and class descriptions
 
-### Credit Sheet [Version 0.0.1]  
-TBW  
+Create and develop the initial class diagram for the Patient Portal including all objects, their dependencies and the methods/functions that these objects can do.
+
+Identify all of the objects in the system.
+
+Include a paragraph descriptions and and UML representation of the object.
+
+This UML representation should include the name, attributes and operations
+
+The class diagram of all dependencies and relationships using Astah.
+
+ Note that all classes should be related in some way to one another
+
+Test Plan and Functional Testing
+
+TBD
+
+Initial Prototype Code
+
+First development code as well as all of the methods that have been described above working together.
+
+This is done by using JavaFX.
+
+Team Roles
+
+Using the Scrum Agile Development technique, a Scrum Master and a Team Leader will be assigned. From there members will be assigned to certain tasks out of these four to be completed.The amount of members assigned to a certain task will vary, however, the amount will be correlated to the difficulty and value of work ahead.
+
+Phase 1 Roles
+
+Scrum Master = Tanishq MorTeam Leader = Mark Ashinhust
+
+Use Cases and Use Case Diagrams
+
+JC
+
+Mark
+
+Object Identification and CRC
+
+Kylee
+
+Tanishq
+
+Initial Class Diagram and Class Descriptions
+
+Kylee
+
+Tanishq
+
+Test Plan and Functional Testing
+
+JC
+
+Mark
+
+Initial Prototype Code
+
+Mark
+
+Kylee
+
+Tanishq
+
+JC
