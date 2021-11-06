@@ -11,9 +11,15 @@ import java.io.IOException;
 
 
 public class PatientPortal extends Application {
-    private static Stage stg;
 
-    public String lastName, firstName, phoneNum;
+    private static Stage stg;
+    public static String firstName;
+    public static String lastName;
+    public static String phonenumber;
+    public static String immunization_history;
+    public static String medical_history;
+
+    public String phoneNum;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,6 +45,16 @@ public class PatientPortal extends Application {
 
     }
 
+    public static void setValues(String first, String last, String pnum, String medh, String imm)
+    {
+
+        firstName = first;
+        lastName = last;
+        phonenumber = pnum;
+        medical_history = medh;
+        immunization_history = imm;
+
+    }
 
 
     public static void main(String[] args) {

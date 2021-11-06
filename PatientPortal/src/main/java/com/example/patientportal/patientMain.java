@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.sql.*;
 
 public class patientMain {
 
@@ -37,6 +38,28 @@ public class patientMain {
 
         PatientPortal m = new PatientPortal();
         PatientPortal.changeScene("login-selection.fxml");
+
+    }
+
+    public void showInfo(ActionEvent actionEvent) throws SQLException {
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        //show the current patient information
+        lastNameLabel.setText(PatientPortal.lastName);
+        firstNameLabel.setText(PatientPortal.firstName);
+        phoneNumLabel.setText(PatientPortal.phonenumber);
+        medicalHistoryLabel.setText(PatientPortal.medical_history);
+        immunizationHistoryLabel.setText(PatientPortal.immunization_history);
+
+
 
     }
 

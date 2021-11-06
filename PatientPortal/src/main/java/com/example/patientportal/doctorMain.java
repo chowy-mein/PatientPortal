@@ -6,17 +6,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 public class doctorMain {
 
@@ -29,10 +23,13 @@ public class doctorMain {
     @FXML
     private RadioButton vitalsButton, messageButton;
 
+    @FXML
+    private Label welcomeLabel;
 
     private String info;
 
     public String doctorMessage;
+
 
     public void backToLogin(ActionEvent actionEvent) throws IOException {
 

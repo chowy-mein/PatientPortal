@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URI;
+import java.sql.*;
 
 
 public class patientLoginSelection {
@@ -40,42 +41,80 @@ public class patientLoginSelection {
 
     }
 
-    public void patientLogin(ActionEvent actionEvent) throws IOException {
+    public void patientLogin(ActionEvent actionEvent) throws IOException, SQLException {
 
         patientAuth();
 
     }
 
 
-
-
-
-
-
-    private void patientAuth() throws IOException {
+    private void patientAuth() throws IOException, SQLException {
 
         PatientPortal m = new PatientPortal();
 
-        if(patientUsernameInput.getText().toString().equals("patient") && patientPasswordInput.getText().toString().equals("123"))
-        {
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
 
-            patientSuccessLabel.setTextFill(Color.GREEN);
-            patientSuccessLabel.setText("Success!");
+        //create connection
+        Connection connectDb = connectNow.getConnection();
 
-            PatientPortal.changeScene("patientMainPage.fxml");
+        ResultSet resultSet = null;
+        Statement statement = connectDb.createStatement();
 
 
-        } else if (patientUsernameInput.getText().isEmpty() && patientPasswordInput.getText().isEmpty()) {
+        //create string to verify the doctor logon information
+        String verifyLogin = "SELECT count(1) FROM patientlogins WHERE username = '" + patientUsernameInput.getText() + "' AND password ='" + patientPasswordInput.getText() + "'";
 
-            patientSuccessLabel.setTextFill(Color.RED);
-            patientSuccessLabel.setText("Enter Information");
+        String name_query = "SELECT firstname, lastname, phonenumber, medh, imm FROM patientlogins";
 
-        }
-        else
-        {
 
-            patientSuccessLabel.setTextFill(Color.RED);
-            patientSuccessLabel.setText("Incorrect Username/Password");
+        try{
+
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
+            //name query statement
+            PreparedStatement pst = connectDb.prepareStatement(name_query);
+            //set the query
+            ResultSet names = pst.executeQuery();
+
+            while (names.next()){
+
+                PatientPortal.firstName = names.getString("firstname");
+                PatientPortal.lastName = names.getString("lastname");
+                PatientPortal.phonenumber = names.getString("phonenumber");
+                PatientPortal.medical_history = names.getString("medh");
+                PatientPortal.immunization_history = names.getString("imm");
+
+            }
+
+
+            //1 is within database and 0 is not included in the database
+            while(queryResult.next())
+            {
+
+                if(queryResult.getInt(1) == 1)
+                {
+
+                    patientSuccessLabel.setTextFill(Color.GREEN);
+                    patientSuccessLabel.setText("Success!");
+
+                    PatientPortal.changeScene("PatientMainPage.fxml");
+
+                }
+                else
+                {
+
+                    patientSuccessLabel.setTextFill(Color.RED);
+                    patientSuccessLabel.setText("Incorrect Username/Password");
+
+                }
+
+
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            e.getCause();
 
         }
 

@@ -7,6 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javafx.fxml.Initializable;
 
@@ -45,26 +48,62 @@ public class doctorLoginSelection {
 
         PatientPortal m = new PatientPortal(); //create new portal object
 
-        if (doctorUsernameInput.getText().toString().equals("admin") && doctorPasswordInput.getText().toString().equals("123"))
-        {
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
 
-            successLabel.setTextFill(Color.GREEN);
-            successLabel.setText("Success!");
-            PatientPortal.changeScene("doctorMain.fxml");
+        //create connection
+        Connection connectDb = connectNow.getConnection();
 
-        }
+        //create string to verify the doctor logon information
+        String verifyLogin = "SELECT count(1) FROM doctorlogins WHERE username = '" + doctorUsernameInput.getText() + "' AND password ='" + doctorPasswordInput.getText() + "'";
 
-        else if (doctorUsernameInput.getText().isEmpty() && doctorPasswordInput.getText().isEmpty())
-        {
 
-            successLabel.setTextFill(Color.RED);
-            successLabel.setText("Enter Information");
-        }
 
-        else
-        {
-            successLabel.setTextFill(Color.RED);
-            successLabel.setText("Wrong Username or Password");
+
+        try{
+
+            Statement statement = connectDb.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
+
+
+            String patient_fname = "SELECT firstname FROM doctorlogins WHERE username = '" + doctorUsernameInput.getText() + "' AND password ='" + doctorPasswordInput.getText() + "'";
+            String patient_lname = "SELECT lastname FROM doctorlogins WHERE username = '" + doctorUsernameInput.getText() + "' AND password ='" + doctorPasswordInput.getText() + "'";
+
+            ResultSet fnameResult = statement.executeQuery(patient_fname);
+            ResultSet lnameResult = statement.executeQuery(patient_lname);
+
+            PatientPortal.firstName = fnameResult.getString(1);
+            PatientPortal.lastName = lnameResult.getString(1);
+
+
+            //1 is within database and 0 is not included in the database
+            while(queryResult.next())
+            {
+
+                if(queryResult.getInt(1) == 1)
+                {
+
+                    successLabel.setTextFill(Color.GREEN);
+                    successLabel.setText("Success!");
+
+                    PatientPortal.changeScene("doctorMain.fxml");
+
+                }
+                else
+                {
+
+                    successLabel.setTextFill(Color.RED);
+                    successLabel.setText("Incorrect Username/Password");
+
+                }
+
+
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            e.getCause();
 
         }
 

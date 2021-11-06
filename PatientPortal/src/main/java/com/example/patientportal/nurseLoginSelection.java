@@ -7,7 +7,12 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 
+
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 
 public class nurseLoginSelection {
 
@@ -50,28 +55,49 @@ public class nurseLoginSelection {
 
         PatientPortal m = new PatientPortal();
 
-        if(nurseUsernameInput.getText().toString().equals("nurse") && nursePasswordInput.getText().toString().equals("123"))
-        {
+        DatabaseConnect connnectNow = new DatabaseConnect();
 
-            successLabel.setTextFill(Color.GREEN);
-            successLabel.setText("Success!");
+        Connection connectDb = connnectNow.getConnection();
 
-            PatientPortal.changeScene("nurseMainPage.fxml");
+        String verifyLogin = "SELECT count(1) FROM nurselogins WHERE username = '" + nurseUsernameInput.getText() + "' AND password ='" + nursePasswordInput.getText() + "'";
+
+        try{
+
+            Statement statement = connectDb.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
+
+            //1 is within database and 0 is not included in the database
+            while(queryResult.next())
+            {
+
+                if(queryResult.getInt(1) == 1)
+                {
+
+                    successLabel.setTextFill(Color.GREEN);
+                    successLabel.setText("Success!");
+
+                    PatientPortal.changeScene("nurseMainPage.fxml");
+
+                }
+                else
+                {
+
+                    successLabel.setTextFill(Color.RED);
+                    successLabel.setText("Incorrect Username/Password");
+
+                }
 
 
-        } else if (nurseUsernameInput.getText().isEmpty() && nursePasswordInput.getText().isEmpty()) {
+            }
 
-            successLabel.setTextFill(Color.RED);
-            successLabel.setText("Enter Information");
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            e.getCause();
 
         }
-        else
-        {
 
-            successLabel.setTextFill(Color.RED);
-            successLabel.setText("Incorrect Username/Password");
 
-        }
 
 
     }

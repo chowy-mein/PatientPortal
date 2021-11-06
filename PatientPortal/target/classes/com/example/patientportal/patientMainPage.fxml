@@ -74,6 +74,7 @@
                   </Label>
                   <TextField fx:id="phoneNumField" layoutX="424.0" layoutY="67.0" promptText="XXX-XXX-XXXX" />
                   <Button fx:id="changeButton" layoutX="424.0" layoutY="99.0" mnemonicParsing="false" onAction="#changeNumber" text="Change" />
+                  <Button layoutX="13.0" layoutY="8.0" mnemonicParsing="false" onAction="#showInfo" text="Show My Info" />
                </children></AnchorPane>
       </content>
     </Tab>
