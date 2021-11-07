@@ -74,13 +74,19 @@ public class createAccount {
 
             resultSet = statement.getGeneratedKeys();
 
+            String gatherID = "SELECT patientID FROM patientlogins WHERE username ='" + usernameField.getText() + "'";
 
+            Statement stmt = connectDb.createStatement();
+            ResultSet rs = stmt.executeQuery(gatherID);
 
-                PatientPortal.firstName = firstName.getText();
-                PatientPortal.lastName = lastName.getText();
-                PatientPortal.phonenumber = phoneNum.getText();
-                PatientPortal.medical_history = "N/A";
-                PatientPortal.immunization_history = "N/A";
+            int id = rs.getInt("patientID");
+
+            PatientPortal.firstName = firstName.getText();
+            PatientPortal.lastName = lastName.getText();
+            PatientPortal.phonenumber = phoneNum.getText();
+            PatientPortal.medical_history = "N/A";
+            PatientPortal.immunization_history = "N/A";
+            PatientPortal.patientID = id;
 
 
 

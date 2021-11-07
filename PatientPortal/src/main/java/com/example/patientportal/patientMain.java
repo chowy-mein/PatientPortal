@@ -20,7 +20,7 @@ public class patientMain {
     private Label phoneNumLabel, lastNameLabel, firstNameLabel, medicalHistoryLabel, immunizationHistoryLabel, incomingAmtLabel;
 
     @FXML
-    private TextField phoneNumField;
+    private TextField phoneNumField, titleLabel;
 
     @FXML
     private MenuItem firstDate, secondDate;
@@ -63,21 +63,44 @@ public class patientMain {
 
     }
 
-    public void changeNumber(ActionEvent actionEvent) {
+    public void changeNumber(ActionEvent actionEvent) throws SQLException {
 
 
         phoneNumLabel.setText(""); //clear phone text
         //change Label
-        phoneNumLabel.setText("+1 " + phoneNumField.getText().toString());
 
-        //extra code for GUI Submission
-        lastNameLabel.setText("Ashinhust");
-        firstNameLabel.setText("Mark");
+        //show the current patient information
+        lastNameLabel.setText(PatientPortal.lastName);
+        firstNameLabel.setText(PatientPortal.firstName);
+        phoneNumLabel.setText(PatientPortal.phonenumber);
+        medicalHistoryLabel.setText(PatientPortal.medical_history);
+        immunizationHistoryLabel.setText(PatientPortal.immunization_history);
 
-        medicalHistoryLabel.setTextFill(Color.RED);
-        medicalHistoryLabel.setText("No active medical history");
-        immunizationHistoryLabel.setTextFill(Color.RED);
-        immunizationHistoryLabel.setText("No history of Immunizations");
+        //update phone number
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        String changeNum = "UPDATE patientlogins SET phonenumber = '" + phoneNumField.getText() + "' WHERE firstname = '" + PatientPortal.firstName + "'";
+
+
+        statement = connectDb.prepareStatement(changeNum, Statement.RETURN_GENERATED_KEYS);
+
+        statement.executeUpdate();
+
+        PatientPortal.phonenumber = phoneNumField.getText();
+
+        //update on screen
+        phoneNumLabel.setText(PatientPortal.phonenumber);
+
+        //update label for change
+        phoneNumLabel.setText("Updated");
 
 
     }
@@ -100,13 +123,56 @@ public class patientMain {
 
     public void send(ActionEvent actionEvent) {
 
+        try
+        {
+            //create SQL database connection
+            DatabaseConnect connectNow = new DatabaseConnect();
+
+            //create connection
+            Connection connectDb = connectNow.getConnection();
+
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+
+            //type of 1 denotes a doctor message
+            String messageQuery = "INSERT INTO messages (type, title, body, senderID) VALUES(?, ?, ?, ?);";
+
+            statement = connectDb.prepareStatement(messageQuery, Statement.RETURN_GENERATED_KEYS);
+
+            int count = 1;
+
+            statement.setInt(count++, 1); //doctor message
+            statement.setString(count++, titleLabel.getText());
+            statement.setString(count++, messageArea.getText());
+            statement.setInt(count++, PatientPortal.patientID);
+
+            statement.executeUpdate();
+
+            resultSet = statement.getGeneratedKeys();
+
+
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
+
         docMessage = messageArea.getText().toString();
         messageArea.setStyle("-fx-text-fill: #00ff00");
         messageArea.setText("Message Sent");
         messageArea.setStyle("-fx-text-fill: #000000");
+        titleLabel.setText("");
 
         incomingAmtLabel.setText("0");
         incomingArea.setText("[No messages at this time]");
+
+
+        //database addition
+
+
 
 
     }

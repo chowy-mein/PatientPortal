@@ -8,6 +8,10 @@ import javafx.scene.control.RadioButton;
 
 import java.io.IOException;
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -31,6 +35,11 @@ public class doctorMain {
 
     public String doctorMessage;
 
+    int patientID = 0;
+
+    public doctorMain() throws SQLException {
+    }
+
 
     public void backToLogin(ActionEvent actionEvent) throws IOException {
 
@@ -46,11 +55,43 @@ public class doctorMain {
 
     }
 
-    public void openMark(ActionEvent actionEvent) {
+
+
+
+
+    public void openMark(ActionEvent actionEvent) throws SQLException {
 
         infoField.setStyle("-fx-text-fill: #000000");
 
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        patientID = 1;
+
+        //create string to verify the doctor logon information
+        String gatherMessages = "SELECT title, body FROM messages WHERE senderID = " + patientID;
+
+        String addTitle = "";
+        String addBody = "";
+
+
+
+        PreparedStatement pst = connectDb.prepareStatement(gatherMessages);
+        ResultSet addText = pst.executeQuery();
+
+        while (addText.next()) {
+            addTitle = addText.getString("title");
+            addBody = addText.getString("body");
+
+        }
+
+
         if (vitalsButton.isSelected() && !messageButton.isSelected()){
+
+
 
             infoField.setText("");
             infoField.setText("Name: Mark A\n" +
@@ -58,7 +99,9 @@ public class doctorMain {
                     "Height: 5ft. 9in.\n" +
                     "Temperature: 96.8⁰F\n" +
                     "Blood Pressure: 76\n" +
-                    "Age: 20");
+                    "Age: 20\n\n");
+
+
         }
         else if (vitalsButton.isSelected() && messageButton.isSelected())
         {
@@ -69,7 +112,7 @@ public class doctorMain {
                     "Height: 5ft. 9in.\n" +
                     "Temperature: 96.8⁰F\n" +
                     "Blood Pressure: 76\n" +
-                    "Age: 20\n\nNo Messages");
+                    "Age: 20\n\nMessages:\n" + addTitle + "\n\nBody:\n" + addBody);
 
         }
         else if (!vitalsButton.isSelected() && !messageButton.isSelected())

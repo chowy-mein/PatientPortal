@@ -80,8 +80,6 @@ public class doctorLoginSelection {
 
             }
 
-
-
             //1 is within database and 0 is not included in the database
             while(queryResult.next())
             {

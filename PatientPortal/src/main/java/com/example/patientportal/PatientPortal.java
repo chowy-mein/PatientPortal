@@ -18,6 +18,9 @@ public class PatientPortal extends Application {
     public static String phonenumber;
     public static String immunization_history;
     public static String medical_history;
+    public static int patientID = 0;
+    public static int doctorID = 0;
+    public static int nurseID = 0;
 
     public String phoneNum;
 
