@@ -53,6 +53,7 @@ public class createAccount {
             PreparedStatement statement = null;
             ResultSet resultSet = null;
 
+
             String query = "INSERT INTO patientlogins (patientID, username, password, firstname, lastname, phonenumber, medh, imm) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
             statement = connectDb.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
@@ -73,8 +74,16 @@ public class createAccount {
 
             resultSet = statement.getGeneratedKeys();
 
-            PatientPortal.firstName = "SELECT firstname FROM patientlogins WHERE username = '" + usernameField.getText() + "' AND password ='" + passwordField.getText() + "'";
-            PatientPortal.lastName = "SELECT lastname FROM patientlogins WHERE username = '" + usernameField.getText() + "' AND password ='" + passwordField.getText() + "'";
+
+
+                PatientPortal.firstName = firstName.getText();
+                PatientPortal.lastName = lastName.getText();
+                PatientPortal.phonenumber = phoneNum.getText();
+                PatientPortal.medical_history = "N/A";
+                PatientPortal.immunization_history = "N/A";
+
+
+
 
 
 

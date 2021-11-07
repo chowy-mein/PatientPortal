@@ -13,8 +13,8 @@ import java.io.IOException;
 public class PatientPortal extends Application {
 
     private static Stage stg;
-    public static String firstName;
-    public static String lastName;
+    public static String firstName = "N/A";
+    public static String lastName = "N/A";
     public static String phonenumber;
     public static String immunization_history;
     public static String medical_history;

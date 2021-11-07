@@ -11,6 +11,7 @@ import java.net.URI;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseDragEvent;
 
 public class doctorMain {
 
@@ -24,7 +25,7 @@ public class doctorMain {
     private RadioButton vitalsButton, messageButton;
 
     @FXML
-    private Label welcomeLabel;
+    public static Label welcomeLabel;
 
     private String info;
 
