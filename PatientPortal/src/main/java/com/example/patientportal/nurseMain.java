@@ -23,7 +23,8 @@ public class nurseMain {
     //add TextFields
     @FXML
     private TextField weightInput, heightFeetInput, heightInchesInput, tempInput, ageInput, bpInput, firstNameInput, lastNameInput;
-
+    
+    // add Button Properties
     @FXML
     private MenuButton ageCheck;
 
@@ -38,7 +39,7 @@ public class nurseMain {
 
     boolean older = false;
 
-
+    // *** Logout feature for nurse side ***
     public void logout(ActionEvent actionEvent) throws IOException {
 
         PatientPortal m = new PatientPortal();
@@ -70,7 +71,8 @@ public class nurseMain {
     }
 
 
-
+    // *** Handling if Blood Pressure is a necessary field ***
+    // ** If the patient is > 12 yrs, get their blood pressure **
     public void openBP(ActionEvent actionEvent) {
 
         older = true;
@@ -82,7 +84,8 @@ public class nurseMain {
 
 
     }
-
+    
+    // ** Deactivate blood pressure fields if patient is < 12 yrs **
     public void noBP(ActionEvent actionEvent) {
 
         bpLabel.setVisible(false);
@@ -93,13 +96,13 @@ public class nurseMain {
         ageInput.setVisible(true);
 
     }
+    // *******************************************************
 
-
-
+    // *** Submit information input by Nurse ***
     public void submit(ActionEvent actionEvent) {
 
         float tempInt;
-
+        // ** Exception handling should program find empty fields **
         if (firstNameInput.getText().isEmpty()) {
 
             infoCheck.setText("Missing First Name");
@@ -136,6 +139,7 @@ public class nurseMain {
             infoCheck.setText("Both KG and Lbs has been Chosen");
 
         }
+        // ****************************************************
         else {
 
             String tempS = tempInput.getText().toString();
@@ -146,7 +150,8 @@ public class nurseMain {
             //gather string of all information
             String name = "Name: " + firstNameInput.getText().toString() + " " + lastNameInput.getText().toString() + "\n";
             String weight = "Weight: ";
-
+            
+            // Convert weight metric depending on selection
             if (lbsRadio.isSelected()) {
 
                 weight += weightInput.getText().toString() + "lbs.\n";
@@ -157,7 +162,7 @@ public class nurseMain {
 
             }
 
-
+            // Display height information
             String height = "Height: " + heightFeetInput.getText().toString() + "ft. " + heightInchesInput.getText().toString() + "in.\n";
 
             String temp = "";
