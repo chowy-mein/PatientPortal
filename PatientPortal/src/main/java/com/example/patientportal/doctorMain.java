@@ -2,20 +2,16 @@ package com.example.patientportal;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
 
 
 import java.io.IOException;
 import java.net.URI;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseDragEvent;
+
+import javax.swing.*;
 
 public class doctorMain {
 
@@ -31,11 +27,12 @@ public class doctorMain {
     @FXML
     public static Label welcomeLabel;
 
+    @FXML
+    private ComboBox patientList;
+
     private String info;
 
     public String doctorMessage;
-
-    int patientID = 0;
 
     public doctorMain() throws SQLException {
     }
@@ -57,11 +54,7 @@ public class doctorMain {
 
 
 
-
-
-    public void openMark(ActionEvent actionEvent) throws SQLException {
-
-        infoField.setStyle("-fx-text-fill: #000000");
+    public void updateList(ActionEvent actionEvent){
 
         //create SQL database connection
         DatabaseConnect connectNow = new DatabaseConnect();
@@ -69,100 +62,176 @@ public class doctorMain {
         //create connection
         Connection connectDb = connectNow.getConnection();
 
-        patientID = 1;
+        String getPatients = "SELECT firstname, lastname FROM patientvitals";
 
-        //create string to verify the doctor logon information
-        String gatherMessages = "SELECT title, body FROM messages WHERE senderID = " + patientID;
-
-        String addTitle = "";
-        String addBody = "";
-
-
-
-        PreparedStatement pst = connectDb.prepareStatement(gatherMessages);
-        ResultSet addText = pst.executeQuery();
-
-        while (addText.next()) {
-            addTitle = addText.getString("title");
-            addBody = addText.getString("body");
-
-        }
-
-
-        if (vitalsButton.isSelected() && !messageButton.isSelected()){
-
-
-
-            infoField.setText("");
-            infoField.setText("Name: Mark A\n" +
-                    "Weight: 155lbs.\n" +
-                    "Height: 5ft. 9in.\n" +
-                    "Temperature: 96.8⁰F\n" +
-                    "Blood Pressure: 76\n" +
-                    "Age: 20\n\n");
-
-
-        }
-        else if (vitalsButton.isSelected() && messageButton.isSelected())
+        try
         {
 
-            infoField.setText("");
-            infoField.setText("Name: Mark A\n" +
-                    "Weight: 155lbs.\n" +
-                    "Height: 5ft. 9in.\n" +
-                    "Temperature: 96.8⁰F\n" +
-                    "Blood Pressure: 76\n" +
-                    "Age: 20\n\nMessages:\n" + addTitle + "\n\nBody:\n" + addBody);
+            Statement statement = connectDb.createStatement();
+            ResultSet populate = statement.executeQuery(getPatients);
+
+            while(populate.next())
+            {
+
+                patientList.getItems().addAll(
+
+                        populate.getString("firstname") + " "
+                                + populate.getString("lastname")
+
+                );
+
+            }
 
         }
-        else if (!vitalsButton.isSelected() && !messageButton.isSelected())
+        catch (Exception e)
         {
 
-            infoField.setStyle("-fx-text-fill: #ff0000");
-            infoField.setText("No Option Selected");
+            e.printStackTrace();
+            e.getCause();
 
         }
 
+
     }
 
-    public void openTanishq(ActionEvent actionEvent) {
-        infoField.setText("");
-        infoField.setText("Name: Tanishq M\n" +
-                "Weight: 140lbs.\n" +
-                "Height: 5ft. 11in.\n" +
-                "Temperature: 96.8⁰F\n" +
-                "Blood Pressure: 76\n" +
-                "Age: 20");
-    }
+    public void displayInformation(ActionEvent actionEvent)
+    {
 
-    public void openSam(ActionEvent actionEvent) {
-        infoField.setText("");
-        infoField.setText("Name: Sammy A\n" +
-                "Weight: 160lbs.\n" +
-                "Height: 6ft. 0in.\n" +
-                "Temperature: 96.8⁰F\n" +
-                "Blood Pressure: 76\n" +
-                "Age: 20");
-    }
+        //check patient ID's
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
 
-    public void openSara(ActionEvent actionEvent) {
-        infoField.setText("");
-        infoField.setText("Name: Sara K\n" +
-                "Weight: 120lbs.\n" +
-                "Height: 5ft. 6in.\n" +
-                "Temperature: 96.8⁰F\n" +
-                "Blood Pressure: 76\n" +
-                "Age: 20");
-    }
+        //create connection
+        Connection connectDb = connectNow.getConnection();
 
-    public void openJuls(ActionEvent actionEvent) {
-        infoField.setText("");
-        infoField.setText("Name: Juls H\n" +
-                "Weight: 145lbs.\n" +
-                "Height: 5ft. 9in.\n" +
-                "Temperature: 96.8⁰F\n" +
-                "Blood Pressure: 76\n" +
-                "Age: 20");
+        String checkID = "SELECT firstname, lastname, patientID FROM patientvitals";
+
+        String firstCheck = "";
+        String lastCheck = "";
+        int id = 0;
+
+        int chosenID = 0;
+
+        try
+        {
+
+            Statement stmt = connectDb.createStatement();
+            ResultSet checkName = stmt.executeQuery(checkID);
+
+            while (checkName.next())
+            {
+
+                firstCheck = checkName.getString("firstname");
+                lastCheck = checkName.getString("lastname");
+                id = checkName.getInt("patientID");
+
+                String fullname = (firstCheck + " " + lastCheck);
+
+                if (patientList.getValue().equals(fullname.toString())){
+
+                    //found the correct id of the patient we want
+                    chosenID = id;
+
+                }
+
+                System.out.println(chosenID);
+
+
+            }
+
+            System.out.print(chosenID);
+
+
+            //create string to verify the doctor logon information
+            //using the id that was found above == chosenID
+            String gatherMessages = "SELECT title, body FROM messages WHERE patientID= " + chosenID + " AND type=" + 1;
+            String gatherPatientVitals = "SELECT firstname, lastname, weight, heightf, heighti, temp, age, bloodp FROM patientvitals WHERE patientID=" + chosenID;
+            infoField.setStyle("-fx-text-fill: #000000");
+
+            System.out.print(chosenID);
+
+            String addTitle = "";
+            String addBody = "";
+            String fname = "";
+            String lname = "";
+            int weight = 0;
+            int feet = 0;
+            int inches = 0;
+            int age = 0;
+            int temp = 0;
+            int bloodp = 0;
+
+
+
+            PreparedStatement pst = connectDb.prepareStatement(gatherMessages);
+            ResultSet addText = pst.executeQuery();
+
+            while (addText.next()) {
+                addTitle = addText.getString("title");
+                addBody = addText.getString("body");
+
+            }
+
+            PreparedStatement pst2 = connectDb.prepareStatement(gatherPatientVitals);
+            ResultSet patientVitals = pst2.executeQuery();
+
+            while (patientVitals.next())
+            {
+
+                fname = patientVitals.getString("firstname");
+                lname = patientVitals.getString("lastname");
+                weight = patientVitals.getInt("weight");
+                feet = patientVitals.getInt("heightf");
+                inches = patientVitals.getInt("heighti");
+                temp = patientVitals.getInt("temp");
+                age = patientVitals.getInt("age");
+                bloodp = patientVitals.getInt("bloodp");
+
+            }
+
+
+            if (vitalsButton.isSelected() && !messageButton.isSelected()){
+
+
+
+                infoField.setText("");
+                infoField.setText("Name: " + fname + " " + lname + "\nWeight: " + weight + "lbs.\nHeight: "
+                        + feet + "ft." + inches + "in. \nTemperature: " + temp + "⁰F\nAge: " + age + "\nBlood Pressure: " + bloodp + "mmHg");
+
+
+            }
+            else if (vitalsButton.isSelected() && messageButton.isSelected())
+            {
+
+                infoField.setText("");
+                infoField.setText("Name: " + fname + " " + lname + "\nWeight: " + weight + "lbs.\nHeight: "
+                        + feet + "ft." + inches + "in. \nTemperature: " + temp + "⁰F\nAge: " + age + "\nBlood Pressure: " + bloodp + "mmHg\n\nMessage Title: "
+                        + addTitle + "\nBody: "  + addBody);
+
+            }
+            else if (!vitalsButton.isSelected() && !messageButton.isSelected())
+            {
+
+                infoField.setStyle("-fx-text-fill: #ff0000");
+                infoField.setText("No Option Selected");
+
+            }
+            else
+            {
+                infoField.setText("");
+                infoField.setText("Message Title: " + addTitle + "\nBody: " + addBody);
+            }
+
+
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
+
     }
 
     public void sendMessage(ActionEvent actionEvent) {

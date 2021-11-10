@@ -26,7 +26,7 @@ public class patientMain {
     private MenuItem firstDate, secondDate;
 
     @FXML
-    private TextArea visitDateInfo, messageArea, incomingArea;
+    private TextArea visitDateInfo, messageArea, incomingArea, medicalHistoryArea, immunizationArea;
 
     @FXML
     private Button logoutButton;
@@ -56,8 +56,8 @@ public class patientMain {
         lastNameLabel.setText(PatientPortal.lastName);
         firstNameLabel.setText(PatientPortal.firstName);
         phoneNumLabel.setText(PatientPortal.phonenumber);
-        medicalHistoryLabel.setText(PatientPortal.medical_history);
-        immunizationHistoryLabel.setText(PatientPortal.immunization_history);
+        medicalHistoryArea.setText(PatientPortal.medical_history);
+        immunizationArea.setText(PatientPortal.immunization_history);
 
 
 
@@ -73,8 +73,8 @@ public class patientMain {
         lastNameLabel.setText(PatientPortal.lastName);
         firstNameLabel.setText(PatientPortal.firstName);
         phoneNumLabel.setText(PatientPortal.phonenumber);
-        medicalHistoryLabel.setText(PatientPortal.medical_history);
-        immunizationHistoryLabel.setText(PatientPortal.immunization_history);
+        medicalHistoryArea.setText(PatientPortal.medical_history);
+        immunizationArea.setText(PatientPortal.immunization_history);
 
         //update phone number
 
@@ -109,16 +109,97 @@ public class patientMain {
 
     public void firstDate(ActionEvent actionEvent) {
 
-        visitDateInfo.setText("Name: Mark Ashinhust\n\nNotes: This visit was pleasant and Mark is showing signs of good health." +
-                "He seems to be exercising and eating well. Blood pressure is average and he has no further concerns.\n\nFinal Evaluation: " +
-                "Patient is ready to be released.");
+        //type 2 message within the messages column
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        //gather the second message type and the first message
+        String gather_message = "SELECT title, body FROM messages WHERE type=" + 2 + " AND messageIndex=" + 1;
+
+        try{
+
+            Statement stmt = connectDb.createStatement();
+
+            //prepare SQL statement
+            PreparedStatement pst = connectDb.prepareStatement(gather_message);
+
+            //execute query
+            ResultSet rs = pst.executeQuery();
+
+            String title ="";
+            String body = "";
+
+            while (rs.next()) {
+                title = rs.getString("title");
+                body = rs.getString("body");
+            }
+
+            //set info to the message information
+            visitDateInfo.setText("Title: " + title + "\nMessage: " + body);
+
+
+
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
+
 
     }
 
 
     public void secondDate(ActionEvent actionEvent) {
 
-        visitDateInfo.setText("You're not supposed to BE HERE");
+        //same as before but with message two
+
+        //type 2 message within the messages column
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        //gather the second message type and the first message
+        String gather_message = "SELECT title, body FROM messages WHERE type=" + 2 + " AND messageIndex=" + 2;
+
+        try{
+
+            Statement stmt = connectDb.createStatement();
+
+            //prepare SQL statement
+            PreparedStatement pst = connectDb.prepareStatement(gather_message);
+
+            //execute query
+            ResultSet rs = pst.executeQuery();
+
+            String title ="";
+            String body = "";
+
+            while (rs.next()) {
+                title = rs.getString("title");
+                body = rs.getString("body");
+            }
+
+            //set info to the message information
+            visitDateInfo.setText("Title: " + title + "\nMessage: " + body);
+
+
+
+        } catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
     }
 
     public void send(ActionEvent actionEvent) {
@@ -135,16 +216,17 @@ public class patientMain {
             ResultSet resultSet = null;
 
             //type of 1 denotes a doctor message
-            String messageQuery = "INSERT INTO messages (type, title, body, senderID) VALUES(?, ?, ?, ?);";
+            String messageQuery = "INSERT INTO messages (patientID, type, title, body, recipientID) VALUES(?, ?, ?, ?, ?);";
 
             statement = connectDb.prepareStatement(messageQuery, Statement.RETURN_GENERATED_KEYS);
 
             int count = 1;
 
+            statement.setInt(count++, PatientPortal.patientID);
             statement.setInt(count++, 1); //doctor message
             statement.setString(count++, titleLabel.getText());
             statement.setString(count++, messageArea.getText());
-            statement.setInt(count++, PatientPortal.patientID);
+            statement.setInt(count++, 1);
 
             statement.executeUpdate();
 
@@ -166,7 +248,7 @@ public class patientMain {
         messageArea.setStyle("-fx-text-fill: #000000");
         titleLabel.setText("");
 
-        incomingAmtLabel.setText("0");
+        incomingAmtLabel.setText(" 0");
         incomingArea.setText("[No messages at this time]");
 
 
