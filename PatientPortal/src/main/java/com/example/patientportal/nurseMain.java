@@ -1,6 +1,5 @@
 package com.example.patientportal;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -8,11 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.CheckBox;
-import javafx.scene.paint.Color;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.sql.*;
 
@@ -42,6 +37,9 @@ public class nurseMain {
     private ComboBox patientList;
 
     boolean older = false;
+
+    String thisFirstName, thisLastName;
+
 
 
     public void logout(ActionEvent actionEvent) throws IOException {
@@ -207,43 +205,15 @@ public class nurseMain {
             //create connection
             Connection connectDb = connectNow.getConnection();
 
-            String firstCheck = "";
-            String lastCheck = "";
-            int id = 0;
 
-            int chosenID = 0;
+
 
             try {
 
                 String addInfo = "INSERT INTO patientvitals (patientID, firstname, lastname, weight, heightf, heighti, temp," +
                         "age, bloodp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-                String getID = "SELECT firstname, lastname, patientID FROM patientvitals";
 
-                Statement stmt = connectDb.createStatement();
-
-                /* for a returning patient
-                ResultSet checkName = stmt.executeQuery(getID);
-
-                while (checkName.next()) {
-
-                    firstCheck = checkName.getString("firstname");
-                    lastCheck = checkName.getString("lastname");
-                    id = checkName.getInt("patientID");
-
-                    String fullname = (firstCheck + " " + lastCheck);
-
-                    if (patientList.getValue().equals(fullname.toString())) {
-
-                        //found the correct id of the patient we want
-                        chosenID = id;
-
-                    }
-
-
-                }
-
-                 */
 
                 //chosenID now equals the patientID
                 PreparedStatement statement = connectDb.prepareStatement(addInfo, Statement.RETURN_GENERATED_KEYS);
@@ -278,7 +248,74 @@ public class nurseMain {
 
     public void update(ActionEvent actionEvent) throws IOException
     {
+        //add all information to the database
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
 
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        int id = 0;
+
+        int chosenID = 0;
+        String firstCheck = "";
+        String lastCheck = "";
+
+        try
+        {
+
+            String getID = "SELECT firstname, lastname, patientID FROM patientlogins";
+
+            Statement stmt = connectDb.createStatement();
+
+                // for a returning patient
+                ResultSet checkName = stmt.executeQuery(getID);
+
+
+
+                while (checkName.next()) {
+
+                    firstCheck = checkName.getString("firstname");
+                    lastCheck = checkName.getString("lastname");
+
+
+                    if (patientList.getValue().equals(firstCheck + " " + lastCheck)) {
+
+                        //found the correct id of the patient we want
+                        chosenID = checkName.getInt("patientID");
+                        //stack trace
+                        System.out.println("true");
+
+                    }
+
+
+                }
+
+                System.out.println(chosenID);
+
+                String updateQuery = "UPDATE patientvitals " +
+                        "SET firstname='" + firstNameInput.getText() +
+                        "', lastname='" + lastNameInput.getText() + "', weight=" +
+                        Integer.parseInt(weightInput.getText()) + ", heightf=" +
+                        Integer.parseInt(heightFeetInput.getText()) + ", heighti=" +
+                        Double.parseDouble(heightInchesInput.getText()) + ", temp=" +
+                        Integer.parseInt(tempInput.getText()) + ", age=" + Integer.parseInt(ageInput.getText()) +
+                        ", bloodp=" + Integer.parseInt(bpInput.getText()) + " WHERE patientID=" + chosenID;
+
+
+                PreparedStatement statement = connectDb.prepareStatement(updateQuery);
+                statement.executeUpdate();
+
+
+
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
 
     }
 
