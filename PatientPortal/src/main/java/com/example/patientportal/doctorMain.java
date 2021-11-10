@@ -82,8 +82,6 @@ public class doctorMain {
 
             }
 
-            System.out.print(patientList.getValue());
-
         }
         catch (Exception e)
         {
@@ -93,7 +91,6 @@ public class doctorMain {
 
         }
 
-        //patientList.getItems().addAll();
 
     }
 
