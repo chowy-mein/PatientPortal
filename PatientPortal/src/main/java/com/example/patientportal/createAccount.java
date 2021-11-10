@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 
+//Buttons, text fields, scenes for JavaFx visuals
 public class createAccount {
 
     @FXML
@@ -27,7 +28,7 @@ public class createAccount {
 
     }
 
-
+    //button so confirm entered account info
     public void submitButton(ActionEvent actionEvent) throws IOException {
 
         information = "First: " + firstName.getText().toString() + "\nLast: " + lastName.getText().toString() +
@@ -95,6 +96,7 @@ public class createAccount {
 
 
         }
+        //catches exceptions and determines cause
         catch (Exception e)
         {
 
