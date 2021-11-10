@@ -11,7 +11,8 @@ import java.io.IOException;
 
 
 public class PatientPortal extends Application {
-
+    
+    // *** Create applicaiton properties ***  
     private static Stage stg;
     public static String firstName = "N/A";
     public static String lastName = "N/A";
@@ -24,6 +25,7 @@ public class PatientPortal extends Application {
 
     public String phoneNum;
 
+    // *** Set-up the application's scene properties ***
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -31,7 +33,7 @@ public class PatientPortal extends Application {
         stage.setResizable(false);
 
         FXMLLoader fxmlLoader = new FXMLLoader(PatientPortal.class.getResource("login-selection.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400); 
         stage.setTitle("Patient Portal");
         stage.setScene(scene);
         stage.show();
@@ -40,14 +42,16 @@ public class PatientPortal extends Application {
 
 
     }
-
+    
+    // *** Load and change to a different scene *** 
     public static void changeScene(String fxml) throws IOException {
         Parent pane = FXMLLoader.load(PatientPortal.class.getResource(fxml));
 
         stg.getScene().setRoot(pane);
 
     }
-
+    
+    // *** Function utilized to change values related to patient information *** 
     public static void setValues(String first, String last, String pnum, String medh, String imm)
     {
 
@@ -59,7 +63,7 @@ public class PatientPortal extends Application {
 
     }
 
-
+    // *** Run the application :) ***
     public static void main(String[] args) {
         launch();
     }
