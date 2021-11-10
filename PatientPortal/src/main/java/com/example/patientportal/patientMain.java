@@ -216,16 +216,17 @@ public class patientMain {
             ResultSet resultSet = null;
 
             //type of 1 denotes a doctor message
-            String messageQuery = "INSERT INTO messages (type, title, body, senderID) VALUES(?, ?, ?, ?);";
+            String messageQuery = "INSERT INTO messages (patientID, type, title, body, recipientID) VALUES(?, ?, ?, ?, ?);";
 
             statement = connectDb.prepareStatement(messageQuery, Statement.RETURN_GENERATED_KEYS);
 
             int count = 1;
 
+            statement.setInt(count++, PatientPortal.patientID);
             statement.setInt(count++, 1); //doctor message
             statement.setString(count++, titleLabel.getText());
             statement.setString(count++, messageArea.getText());
-            statement.setInt(count++, PatientPortal.patientID);
+            statement.setInt(count++, 1);
 
             statement.executeUpdate();
 

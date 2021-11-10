@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
@@ -43,22 +44,20 @@ public class createAccount {
     public void createAccount(ActionEvent actionEvent) throws SQLException, IOException {
 
 
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        int id = 0;
+
         try {
-            //create SQL database connection
-            DatabaseConnect connectNow = new DatabaseConnect();
-
-            //create connection
-            Connection connectDb = connectNow.getConnection();
-
-            PreparedStatement statement = null;
-            ResultSet resultSet = null;
 
 
             String query = "INSERT INTO patientlogins (patientID, username, password, firstname, lastname, phonenumber, medh, imm) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-            statement = connectDb.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement = connectDb.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            //rand number
-            int randAdd = (int) (Math.random() * (1000 - 100 + 1) + 100);
 
             int count = 1;
             statement.setString(count++, null);
@@ -73,16 +72,19 @@ public class createAccount {
 
             statement.executeUpdate();
 
-            resultSet = statement.getGeneratedKeys();
+            ResultSet resultSet = statement.getGeneratedKeys();
 
             String gatherID = "SELECT patientID FROM patientlogins WHERE username ='" + usernameField.getText() + "'";
 
-            Statement stmt = connectDb.createStatement();
-            ResultSet rs = stmt.executeQuery(gatherID);
+            PreparedStatement stmt = connectDb.prepareStatement(gatherID);
+            ResultSet rs = stmt.executeQuery();
 
-            stmt = connectDb.prepareStatement(gatherID, Statement.RETURN_GENERATED_KEYS);
+            while (rs.next())
+            {
 
-            int id = rs.getInt("patientID");
+                id = rs.getInt("patientID");
+
+            }
 
             PatientPortal.firstName = firstName.getText();
             PatientPortal.lastName = lastName.getText();
