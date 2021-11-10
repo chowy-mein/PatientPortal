@@ -52,16 +52,6 @@
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="medicalHistoryLabel" layoutX="14.0" layoutY="196.0" prefHeight="61.0" prefWidth="569.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="immunizationHistoryLabel" layoutX="14.0" layoutY="294.0" prefHeight="61.0" prefWidth="569.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
                   <Label fx:id="phoneNumLabel" layoutX="242.0" layoutY="69.0" prefHeight="20.0" prefWidth="142.0">
                      <font>
                         <Font size="16.0" />
@@ -75,6 +65,8 @@
                   <TextField fx:id="phoneNumField" layoutX="424.0" layoutY="67.0" promptText="XXX-XXX-XXXX" />
                   <Button fx:id="changeButton" layoutX="424.0" layoutY="99.0" mnemonicParsing="false" onAction="#changeNumber" text="Change" />
                   <Button layoutX="13.0" layoutY="8.0" mnemonicParsing="false" onAction="#showInfo" text="Show My Info" />
+                  <TextArea fx:id="medicalHistoryArea" layoutX="13.0" layoutY="189.0" prefHeight="74.0" prefWidth="571.0" />
+                  <TextArea fx:id="immunizationArea" layoutX="15.0" layoutY="289.0" prefHeight="74.0" prefWidth="571.0" />
                </children></AnchorPane>
       </content>
     </Tab>

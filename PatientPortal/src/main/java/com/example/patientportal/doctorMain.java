@@ -112,7 +112,7 @@ public class doctorMain {
                     "Height: 5ft. 9in.\n" +
                     "Temperature: 96.8⁰F\n" +
                     "Blood Pressure: 76\n" +
-                    "Age: 20\n\nMessages:\n" + addTitle + "\n\nBody:\n" + addBody);
+                    "Age: 20\n\nMessage Title: " + addTitle + "\n\nBody: " + addBody);
 
         }
         else if (!vitalsButton.isSelected() && !messageButton.isSelected())
@@ -122,17 +122,48 @@ public class doctorMain {
             infoField.setText("No Option Selected");
 
         }
+        else
+        {
+           infoField.setText("");
+           infoField.setText("Message Title: " + addTitle + "\n\nBody: " + addBody);
+        }
 
     }
 
-    public void openTanishq(ActionEvent actionEvent) {
+    public void openTanishq(ActionEvent actionEvent) throws SQLException {
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        patientID = 2;
+
+        //create string to verify the doctor logon information
+        String gatherMessages = "SELECT title, body FROM messages WHERE senderID = " + patientID;
+
+        String addTitle = "";
+        String addBody = "";
+
+
+
+        PreparedStatement pst = connectDb.prepareStatement(gatherMessages);
+        ResultSet addText = pst.executeQuery();
+
+        while (addText.next()) {
+            addTitle = addText.getString("title");
+            addBody = addText.getString("body");
+
+        }
+
         infoField.setText("");
         infoField.setText("Name: Tanishq M\n" +
                 "Weight: 140lbs.\n" +
                 "Height: 5ft. 11in.\n" +
                 "Temperature: 96.8⁰F\n" +
                 "Blood Pressure: 76\n" +
-                "Age: 20");
+                "Age: 20\n\nMessages:\n" + addTitle + "\n\nBody:\n" + addBody);
     }
 
     public void openSam(ActionEvent actionEvent) {

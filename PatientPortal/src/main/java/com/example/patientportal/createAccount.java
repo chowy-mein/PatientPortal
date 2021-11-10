@@ -67,8 +67,9 @@ public class createAccount {
             statement.setString(count++, firstName.getText());
             statement.setString(count++, lastName.getText());
             statement.setString(count++, phoneNum.getText());
-            statement.setString(count++, "N/A");
-            statement.setString(count++, "N/A");
+            //update history information. This will be empty.
+            statement.setString(count++, "This patient has no medical history.");
+            statement.setString(count++, "This patient has no immunization history.");
 
             statement.executeUpdate();
 
@@ -79,6 +80,8 @@ public class createAccount {
             Statement stmt = connectDb.createStatement();
             ResultSet rs = stmt.executeQuery(gatherID);
 
+            stmt = connectDb.prepareStatement(gatherID, Statement.RETURN_GENERATED_KEYS);
+
             int id = rs.getInt("patientID");
 
             PatientPortal.firstName = firstName.getText();
@@ -87,10 +90,6 @@ public class createAccount {
             PatientPortal.medical_history = "N/A";
             PatientPortal.immunization_history = "N/A";
             PatientPortal.patientID = id;
-
-
-
-
 
 
         }
