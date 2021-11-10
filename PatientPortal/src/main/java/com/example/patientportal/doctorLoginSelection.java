@@ -14,8 +14,15 @@ import java.sql.Statement;
 
 import javafx.fxml.Initializable;
 
-public class doctorLoginSelection {
+/*
+    This is the page for the doctor to input their login credentials. This page will show input textfields 
+    for the doctor’s username and password. Once the doctor has inputted their credentials they will be 
+    authenticated by looking at the database. Once authenticated they would be redirected to the doctor main page.
+*/
 
+public class doctorLoginSelection {
+    
+    // Instantiate the private variables
     @FXML
     private MenuItem doctorExit, backMenu;
 
@@ -32,20 +39,20 @@ public class doctorLoginSelection {
     private Label successLabel;
 
 
-
+    // Method for exiting the program
     public void exitProgram(ActionEvent actionEvent) {
 
         Platform.exit(); //exit the application
 
     }
-
+    // Method for when the user needs to login
     public void doctorLogin(ActionEvent actionEvent) throws IOException {
 
         checkLogin(); //method to check login parameters
 
     }
-
-    private void checkLogin() throws IOException { //validate login with SQL database
+    // Method for checking if the login information is correct or not using the SQL database
+    private void checkLogin() throws IOException { 
 
         PatientPortal m = new PatientPortal(); //create new portal object
 
@@ -60,7 +67,7 @@ public class doctorLoginSelection {
 
 
 
-
+        // Error handling
         try{
 
             Statement statement = connectDb.createStatement();
@@ -103,7 +110,7 @@ public class doctorLoginSelection {
 
 
             }
-
+        // Catch the errors and print them out 
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -114,7 +121,7 @@ public class doctorLoginSelection {
 
     }
 
-
+    // Method to go back to the main page 
     public void backPage(ActionEvent actionEvent) throws IOException {
 
         PatientPortal m = new PatientPortal();
