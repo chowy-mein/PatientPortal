@@ -13,7 +13,7 @@ import java.util.logging.Level;
 public class createAccount {
 
     @FXML
-    private TextField firstName, lastName, month, date, year, phoneNum, usernameField, passwordField;
+    private TextField firstName, lastName, month, date, year, phoneNum, usernameField, passwordField, insuranceNumber;
 
     @FXML
     private TextArea verifyArea;
@@ -55,7 +55,7 @@ public class createAccount {
         try {
 
 
-            String query = "INSERT INTO patientlogins (patientID, username, password, firstname, lastname, phonenumber, medh, imm) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO patientlogins (patientID, username, password, firstname, lastname, phonenumber, medh, imm, insurance) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connectDb.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
 
@@ -69,6 +69,7 @@ public class createAccount {
             //update history information. This will be empty.
             statement.setString(count++, "This patient has no medical history.");
             statement.setString(count++, "This patient has no immunization history.");
+            statement.setString(count++, insuranceNumber.getText());
 
             statement.executeUpdate();
 
@@ -92,6 +93,7 @@ public class createAccount {
             PatientPortal.medical_history = "N/A";
             PatientPortal.immunization_history = "N/A";
             PatientPortal.patientID = id;
+            PatientPortal.insurance = insuranceNumber.getText();
 
 
         }

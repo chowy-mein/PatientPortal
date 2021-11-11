@@ -22,6 +22,7 @@ public class PatientPortal extends Application {
     public static int patientID = 0;
     public static int doctorID = 0;
     public static int nurseID = 0;
+    public static String insurance;
 
     public String phoneNum;
 

@@ -20,7 +20,7 @@ public class nurseMain {
 
     //add TextFields
     @FXML
-    private TextField weightInput, heightFeetInput, heightInchesInput, tempInput, ageInput, bpInput, firstNameInput, lastNameInput;
+    private TextField nurseTitleArea, weightInput, heightFeetInput, heightInchesInput, tempInput, ageInput, bpInput, firstNameInput, lastNameInput;
     
     // add Button Properties
     @FXML
@@ -33,12 +33,14 @@ public class nurseMain {
     private RadioButton lbsRadio, kgRadio, newPatientRadio, returnPatientRadio, yesButton, noButton, vitalsButton;
 
     @FXML
-    private TextArea infoCheck;
+    private TextArea infoCheck, nurseBodyArea;
 
     @FXML
     private ComboBox patientList;
 
     boolean lessThan = false;
+
+    int chosenPatientID = 0;
 
     String thisFirstName, thisLastName;
 
@@ -300,6 +302,8 @@ public class nurseMain {
 
 
                 }
+
+                chosenPatientID = chosenID;
 
                 String updateQuery = "";
 
@@ -574,6 +578,116 @@ public class nurseMain {
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
+        }
+
+    }
+
+    public void submitNurseMessage(ActionEvent actionEvent) throws  IOException{
+
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        try
+        {
+
+            if (chosenPatientID != 0) {
+
+                //type 2 = nurse message
+                String message = "INSERT INTO messages (patientID, type, title, body, recipientID, pharm) VALUES(?,?,?,?,?,?)";
+
+                PreparedStatement statement = connectDb.prepareStatement(message, Statement.RETURN_GENERATED_KEYS);
+
+                int count = 1;
+
+                statement.setInt(count++, chosenPatientID);
+                statement.setInt(count++, 3); //3 for nurse message
+                statement.setString(count++, nurseTitleArea.getText());
+                statement.setString(count++, nurseBodyArea.getText());
+                statement.setInt(count++, chosenPatientID);
+                statement.setInt(count++, 0);
+
+                statement.executeUpdate();
+
+                //clear text areas
+                nurseBodyArea.setText("");
+                nurseTitleArea.setText("");
+            }
+
+            else
+            {
+
+                nurseTitleArea.setText("");
+                nurseBodyArea.setText("Message Not Sent | Select Patient on Previous Tab");
+
+            }
+
+
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+            e.getCause();
+
+        }
+
+
+    }
+
+    public void selectPatient(ActionEvent actionEvent)
+    {
+
+        //add all information to the database
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        int id = 0;
+
+        int chosenID = 0;
+        String firstCheck = "";
+        String lastCheck = "";
+
+        try {
+
+            String getID = "SELECT firstname, lastname, patientID FROM patientlogins";
+
+            Statement stmt = connectDb.createStatement();
+
+            // for a returning patient
+            ResultSet checkName = stmt.executeQuery(getID);
+
+
+            while (checkName.next()) {
+
+                firstCheck = checkName.getString("firstname");
+                lastCheck = checkName.getString("lastname");
+
+
+                if (patientList.getValue().equals(firstCheck + " " + lastCheck)) {
+
+                    //found the correct id of the patient we want
+                    chosenID = checkName.getInt("patientID");
+                    //stack trace
+                    System.out.println("true");
+
+                }
+
+
+            }
+
+            chosenPatientID = chosenID;
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+
         }
 
     }

@@ -19,10 +19,13 @@ public class doctorMain {
     private MenuItem helpButton;
 
     @FXML
-    private TextArea infoField;
+    private TextArea infoField, bodyField;
 
     @FXML
-    private RadioButton vitalsButton, messageButton;
+    private TextField titleField;
+
+    @FXML
+    private RadioButton vitalsButton, pharmacyRadio, messageButton, patientRadio;
 
     @FXML
     public static Label welcomeLabel;
@@ -30,9 +33,13 @@ public class doctorMain {
     @FXML
     private ComboBox patientList;
 
-    private String info;
+    private String info, patientName;
+
+    private int thisPatID = 0;
 
     public String doctorMessage;
+
+
 
     public doctorMain() throws SQLException {
     }
@@ -167,8 +174,8 @@ public class doctorMain {
             ResultSet addText = pst.executeQuery();
 
             while (addText.next()) {
-                addTitle = addText.getString("title");
-                addBody = addText.getString("body");
+                addTitle += addText.getString("title") + ", ";
+                addBody += addText.getString("body") + ", ";
 
             }
 
@@ -236,10 +243,117 @@ public class doctorMain {
 
     public void sendMessage(ActionEvent actionEvent) {
 
-        infoField.setStyle("-fx-text-fill: #00ff00");
-        infoField.setText("");
-        infoField.setText("Message Sent");
-        infoField.setStyle("-fx-text-fill: #000000");
+        //add all information to the database
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
 
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        String sendMessage = "INSERT INTO messages (patientID, type, title, body, recipientID, pharm) VALUES(?,?,?,?,?,?)";
+
+        int pharmacy = 0;
+
+        if (pharmacyRadio.isSelected())
+        {
+
+            pharmacy = 1;
+        }
+
+        try
+        {
+
+            PreparedStatement statement = connectDb.prepareStatement(sendMessage, Statement.RETURN_GENERATED_KEYS);
+
+            int count = 1;
+
+            statement.setInt(count++, thisPatID);
+            statement.setInt(count++, 2);
+            statement.setString(count++, titleField.getText());
+            statement.setString(count++, bodyField.getText());
+            statement.setInt(count++, thisPatID);
+            statement.setInt(count++, pharmacy);
+
+            statement.executeUpdate();
+
+            titleField.setText("");
+            bodyField.setText("Sent");
+
+
+        }
+        catch (Exception e)
+        {
+
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+    public void getSelection(ActionEvent actionEvent) {
+
+        patientName = patientList.getValue().toString();
+
+        //add all information to the database
+        //create SQL database connection
+        DatabaseConnect connectNow = new DatabaseConnect();
+
+        //create connection
+        Connection connectDb = connectNow.getConnection();
+
+        int id = 0;
+
+        int chosenID = 0;
+        String firstCheck = "";
+        String lastCheck = "";
+
+        try {
+
+            String getID = "SELECT firstname, lastname, patientID FROM patientlogins";
+
+            Statement stmt = connectDb.createStatement();
+
+            // for a returning patient
+            ResultSet checkName = stmt.executeQuery(getID);
+
+
+            while (checkName.next()) {
+
+                firstCheck = checkName.getString("firstname");
+                lastCheck = checkName.getString("lastname");
+
+
+                if (patientList.getValue().equals(firstCheck + " " + lastCheck)) {
+
+                    //found the correct id of the patient we want
+                    chosenID = checkName.getInt("patientID");
+                    //stack trace
+                    System.out.println("true");
+
+                }
+
+
+            }
+
+            thisPatID = chosenID;
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+    }
+
+    public void patientSelected(ActionEvent actionEvent){
+
+        pharmacyRadio.setSelected(false);
+
+    }
+
+    public void pharmSelected(ActionEvent actionEvent){
+
+
+        patientRadio.setSelected(false);
     }
 }

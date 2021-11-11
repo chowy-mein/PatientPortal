@@ -65,7 +65,7 @@ public class patientLoginSelection {
         //create string to verify the doctor logon information
         String verifyLogin = "SELECT count(1) FROM patientlogins WHERE username = '" + patientUsernameInput.getText() + "' AND password ='" + patientPasswordInput.getText() + "'";
 
-        String name_query = "SELECT firstname, lastname, phonenumber, medh, imm, patientID FROM patientlogins WHERE username = '" + patientUsernameInput.getText() +"'";
+        String name_query = "SELECT firstname, lastname, phonenumber, medh, imm, patientID, insurance FROM patientlogins WHERE username = '" + patientUsernameInput.getText() +"'";
 
 
         try{
@@ -84,6 +84,7 @@ public class patientLoginSelection {
                 PatientPortal.medical_history = names.getString("medh");
                 PatientPortal.immunization_history = names.getString("imm");
                 PatientPortal.patientID = names.getInt("patientID");
+                PatientPortal.insurance = names.getString("insurance");
 
             }
 

@@ -37,7 +37,7 @@
             <RadioButton fx:id="vitalsButton" layoutX="21.0" layoutY="171.0" mnemonicParsing="false" text="Vitals" />
             <RadioButton fx:id="messageButton" layoutX="101.0" layoutY="171.0" mnemonicParsing="false" text="Messages" />
             <Button layoutX="201.0" layoutY="2.0" mnemonicParsing="false" onAction="#updateList" text="Update" />
-            <ComboBox fx:id="patientList" layoutX="14.0" layoutY="42.0" prefHeight="27.0" prefWidth="236.0" />
+            <ComboBox fx:id="patientList" layoutX="14.0" layoutY="42.0" onAction="#getSelection" prefHeight="27.0" prefWidth="236.0" />
             <Button layoutX="20.0" layoutY="214.0" mnemonicParsing="false" onAction="#displayInformation" text="Display" />
          </children>
       </AnchorPane>
@@ -46,10 +46,12 @@
       <AnchorPane prefHeight="375.0" prefWidth="326.0" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="infoField" prefHeight="197.0" prefWidth="331.0" />
-            <Label layoutX="14.0" layoutY="211.0" text="Message Relpy" />
+            <Label layoutX="14.0" layoutY="211.0" text="Message Sending" />
             <TextField fx:id="titleField" layoutX="14.0" layoutY="236.0" promptText="Title" />
             <TextArea fx:id="bodyField" layoutX="14.0" layoutY="273.0" prefHeight="88.0" prefWidth="301.0" promptText="Body" />
             <Button fx:id="msgButton" layoutX="178.0" layoutY="236.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="25.0" prefWidth="100.0" text="SUBMIT" />
+            <RadioButton fx:id="patientRadio" layoutX="120.0" layoutY="211.0" mnemonicParsing="false" onAction="#patientSelected" text="Patient" />
+            <RadioButton fx:id="pharmacyRadio" layoutX="201.0" layoutY="211.0" mnemonicParsing="false" onAction="#pharmSelected" text="Pharmacy" />
          </children>
       </AnchorPane>
    </right>
