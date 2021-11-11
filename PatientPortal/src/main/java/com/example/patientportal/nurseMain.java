@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 
@@ -29,7 +30,7 @@ public class nurseMain {
     private Button submitButton;
 
     @FXML
-    private RadioButton lbsRadio, kgRadio, newPatientRadio, returnPatientRadio;
+    private RadioButton lbsRadio, kgRadio, newPatientRadio, returnPatientRadio, yesButton, noButton, vitalsButton;
 
     @FXML
     private TextArea infoCheck;
@@ -37,7 +38,7 @@ public class nurseMain {
     @FXML
     private ComboBox patientList;
 
-    boolean older = false;
+    boolean lessThan = false;
 
     String thisFirstName, thisLastName;
 
@@ -78,33 +79,6 @@ public class nurseMain {
 
     }
 
-    // *** Handling if Blood Pressure is a necessary field ***
-    // ** If the patient is > 12 yrs, get their blood pressure **
-    public void openBP(ActionEvent actionEvent) {
-
-        older = true;
-        ageLabel.setVisible(true);
-        bpLabel.setVisible(true);
-        bpUnitsLabel.setVisible(true);
-        bpInput.setVisible(true);
-        ageInput.setVisible(true);
-
-
-    }
-    
-    // ** Deactivate blood pressure fields if patient is < 12 yrs **
-    public void noBP(ActionEvent actionEvent) {
-
-        bpLabel.setVisible(false);
-        bpUnitsLabel.setVisible(false);
-        bpInput.setVisible(false);
-
-        ageLabel.setVisible(true);
-        ageInput.setVisible(true);
-
-    }
-    // *******************************************************
-
     // *** Submit information input by Nurse ***
     public void submit(ActionEvent actionEvent) {
 
@@ -135,7 +109,7 @@ public class nurseMain {
 
             infoCheck.setText("Missing Age");
 
-        } else if (bpInput.getText().isEmpty() && older) {
+        } else if (bpInput.getText().isEmpty() && !lessThan) {
 
             infoCheck.setText("Missing Blood Pressure");
 
@@ -187,7 +161,7 @@ public class nurseMain {
 
             String bp, age = "";
 
-            if (older) {
+            if (!lessThan) {
 
                 bp = "Blood Pressure: " + bpInput.getText().toString() + "\n";
                 age = "Age: " + ageInput.getText().toString() + "\n";
@@ -249,6 +223,39 @@ public class nurseMain {
 
     }
 
+    public void older(ActionEvent actionEvent) throws IOException{
+
+        //uncheck the no button
+        noButton.setSelected(false);
+
+        ageLabel.setVisible(false);
+        ageInput.setVisible(false);
+        bpLabel.setVisible(false);
+        bpInput.setVisible(false);
+
+        ageLabel.setVisible(true);
+        ageInput.setVisible(true);
+        bpLabel.setVisible(true);
+        bpInput.setVisible(true);
+        lessThan = false;
+
+    }
+    public void younger(ActionEvent actionEvent) throws IOException{
+
+        //uncheck the yes button
+        yesButton.setSelected(false);
+
+        ageLabel.setVisible(false);
+        ageInput.setVisible(false);
+        bpLabel.setVisible(false);
+        bpInput.setVisible(false);
+
+        ageLabel.setVisible(true);
+        ageInput.setVisible(true);
+        lessThan = true;
+
+    }
+
     public void update(ActionEvent actionEvent) throws IOException
     {
         //add all information to the database
@@ -294,20 +301,79 @@ public class nurseMain {
 
                 }
 
-                System.out.println(chosenID);
+                String updateQuery = "";
 
-                String updateQuery = "UPDATE patientvitals " +
-                        "SET firstname='" + firstNameInput.getText() +
-                        "', lastname='" + lastNameInput.getText() + "', weight=" +
-                        Integer.parseInt(weightInput.getText()) + ", heightf=" +
-                        Integer.parseInt(heightFeetInput.getText()) + ", heighti=" +
-                        Double.parseDouble(heightInchesInput.getText()) + ", temp=" +
-                        Integer.parseInt(tempInput.getText()) + ", age=" + Integer.parseInt(ageInput.getText()) +
-                        ", bloodp=" + Integer.parseInt(bpInput.getText()) + " WHERE patientID=" + chosenID;
+                //default 0 is lbs and 1 is kg
+                int lbskg = 0;
+
+                if (kgRadio.isSelected())
+                {
+
+                    lbskg = 1;
+
+                }
+
+                if (lessThan == false)
+                {
+                    updateQuery = "UPDATE patientvitals " +
+                            "SET firstname='" + firstNameInput.getText() +
+                            "', lastname='" + lastNameInput.getText() + "', weight=" +
+                            Integer.parseInt(weightInput.getText()) + ", heightf=" +
+                            Integer.parseInt(heightFeetInput.getText()) + ", heighti=" +
+                            Integer.parseInt(heightInchesInput.getText()) + ", temp=" +
+                            Double.parseDouble(tempInput.getText()) + ", age=" + Integer.parseInt(ageInput.getText()) +
+                            ", bloodp=" + Integer.parseInt(bpInput.getText()) + ", lbskg=" + lbskg +
+                            " WHERE patientID=" + chosenID;
+
+
+                }
+                else
+                {
+
+                    updateQuery = "UPDATE patientvitals " +
+                            "SET firstname='" + firstNameInput.getText() +
+                            "', lastname='" + lastNameInput.getText() + "', weight=" +
+                            Integer.parseInt(weightInput.getText()) + ", heightf=" +
+                            Integer.parseInt(heightFeetInput.getText()) + ", heighti=" +
+                            Integer.parseInt(heightInchesInput.getText()) + ", temp=" +
+                            Double.parseDouble(tempInput.getText()) + ", age=" + Integer.parseInt(ageInput.getText()) +
+                            ", bloodp=" + null + ", lbskg=" + lbskg + " WHERE patientID=" + chosenID;
+
+
+                }
+
+
 
 
                 PreparedStatement statement = connectDb.prepareStatement(updateQuery);
                 statement.executeUpdate();
+
+                String updateNames = "UPDATE patientlogins SET firstname='" +firstNameInput.getText() + "', lastname='"
+                        + lastNameInput.getText() + "' WHERE patientID=" + chosenID;
+
+                PreparedStatement statement1 = connectDb.prepareStatement(updateNames);
+                statement1.executeUpdate();
+
+                //clear tabs and show update message
+                firstNameInput.setText("");
+                lastNameInput.setText("");
+                heightInchesInput.setText("");
+                heightFeetInput.setText("");
+                bpInput.setText("");
+                bpInput.setVisible(false);
+                ageInput.setText("");
+                ageInput.setVisible(false);
+                bpLabel.setVisible(false);
+                ageLabel.setVisible(false);
+                tempInput.setText("");
+                yesButton.setSelected(false);
+                noButton.setSelected(false);
+                weightInput.setText("");
+                lbsRadio.setSelected(false);
+                kgRadio.setSelected(false);
+                patientList.getItems().clear();
+                returnPatientRadio.setSelected(false);
+                newPatientRadio.setSelected(false);
 
 
 
@@ -319,6 +385,156 @@ public class nurseMain {
             e.getCause();
 
         }
+
+    }
+
+    public void showVitals(ActionEvent actionEvent) throws SQLException {
+
+        if (vitalsButton.isSelected())
+        {
+
+            //add all information to the database
+            //create SQL database connection
+            DatabaseConnect connectNow = new DatabaseConnect();
+
+            //create connection
+            Connection connectDb = connectNow.getConnection();
+
+            int id = 0;
+
+            int chosenID = 0;
+            String firstCheck = "";
+            String lastCheck = "";
+
+            String getID = "SELECT firstname, lastname, patientID FROM patientlogins";
+
+            Statement stmt = connectDb.createStatement();
+
+            // for a returning patient
+            ResultSet checkName = stmt.executeQuery(getID);
+
+            try {
+
+
+
+                while (checkName.next()) {
+
+                    firstCheck = checkName.getString("firstname");
+                    lastCheck = checkName.getString("lastname");
+
+
+                    if (patientList.getValue().equals(firstCheck + " " + lastCheck)) {
+
+                        //found the correct id of the patient we want
+                        chosenID = checkName.getInt("patientID");
+                        //stack trace
+                        System.out.println("true");
+
+                    }
+
+
+                }
+
+                String gatherPatientVitals = "";
+
+                if (lessThan)
+                {
+                    gatherPatientVitals = "SELECT firstname, lastname, weight, heightf, heighti, temp, age, lbskg FROM patientvitals WHERE patientID=" + chosenID;
+
+                }
+                else {
+                    //fill area with information
+                    gatherPatientVitals = "SELECT firstname, lastname, weight, heightf, heighti, temp, age, bloodp, lbskg FROM patientvitals WHERE patientID=" + chosenID;
+                }
+
+
+                String fname = "";
+                String lname = "";
+                int weight = 0;
+                int feet = 0;
+                int inches = 0;
+                int age = 0;
+                int temp = 0;
+                int bloodp = 0;
+                int lbskg = 0;
+
+                PreparedStatement pst2 = connectDb.prepareStatement(gatherPatientVitals);
+                ResultSet patientVitals = pst2.executeQuery();
+
+                if (lessThan) {
+
+                    while (patientVitals.next()) {
+
+                        fname = patientVitals.getString("firstname");
+                        lname = patientVitals.getString("lastname");
+                        weight = patientVitals.getInt("weight");
+                        feet = patientVitals.getInt("heightf");
+                        inches = patientVitals.getInt("heighti");
+                        temp = patientVitals.getInt("temp");
+                        age = patientVitals.getInt("age");
+
+                        lbskg = patientVitals.getInt("lbskg");
+
+                    }
+                }
+                else
+                {
+
+                    while (patientVitals.next()) {
+                        fname = patientVitals.getString("firstname");
+                        lname = patientVitals.getString("lastname");
+                        weight = patientVitals.getInt("weight");
+                        feet = patientVitals.getInt("heightf");
+                        inches = patientVitals.getInt("heighti");
+                        temp = patientVitals.getInt("temp");
+                        age = patientVitals.getInt("age");
+                        bloodp = patientVitals.getInt("bloodp");
+                        lbskg = patientVitals.getInt("lbskg");
+                    }
+
+                }
+
+                String lbsOkg = "lbs.";
+
+                if (lbskg == 1)
+                {
+
+                    lbsOkg = "kg.";
+
+                }
+
+
+                if (!lessThan){
+                    infoCheck.setText("");
+                    infoCheck.setText("Name: " + fname + " " + lname + "\nWeight: " + weight + " " + lbsOkg + "\nHeight: "
+                            + feet + "ft." + inches + "in. \nTemperature: " + temp + "⁰F\nAge: " + age + "\nBlood Pressure: " + bloodp + "mmHg");
+                }
+                else
+                {
+                    infoCheck.setText("");
+                    infoCheck.setText("Name: " + fname + " " + lname + "\nWeight: " + weight + " " + lbsOkg + "\nHeight: "
+                            + feet + "ft." + inches + "in. \nTemperature: " + temp + "⁰F\nAge: " + age + "\nBlood Pressure: not available");
+
+                }
+
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                e.getCause();
+
+            }
+
+        }
+        else
+        {
+
+            infoCheck.setText("");
+            vitalsButton.setSelected(false);
+
+        }
+
+
 
     }
 
@@ -334,6 +550,8 @@ public class nurseMain {
 
         //use patient accounts rather than vitals for all patients
         String getPatients = "SELECT firstname, lastname FROM patientlogins";
+
+        patientList.getItems().clear();
 
         try
         {
