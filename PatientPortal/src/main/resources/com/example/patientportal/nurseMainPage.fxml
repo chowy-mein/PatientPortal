@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.patientportal.nurseMain">
+<TabPane tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.patientportal.nurseMain">
    <tabs>
       <Tab text="Vitals">
          <content>
@@ -43,8 +43,8 @@
                         <Label fx:id="bpUnitsLabel" layoutX="208.0" layoutY="249.0" prefHeight="17.0" prefWidth="52.0" text="mmHg" visible="false" />
                         <TextField fx:id="firstNameInput" layoutX="17.0" layoutY="107.0" prefHeight="25.0" prefWidth="61.0" promptText="First" />
                         <TextField fx:id="lastNameInput" layoutX="81.0" layoutY="107.0" promptText="Last Name" />
-                        <RadioButton fx:id="lbsRadio" layoutX="209.0" layoutY="176.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="45.0" text="lbs" />
-                        <RadioButton fx:id="kgRadio" layoutX="254.0" layoutY="176.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="45.0" text="kg" />
+                        <RadioButton fx:id="lbsRadio" layoutX="209.0" layoutY="176.0" mnemonicParsing="false" onAction="#turnoffKg" prefHeight="17.0" prefWidth="45.0" text="lbs" />
+                        <RadioButton fx:id="kgRadio" layoutX="254.0" layoutY="176.0" mnemonicParsing="false" onAction="#turnoffLbs" prefHeight="17.0" prefWidth="45.0" text="kg" />
                         <RadioButton fx:id="newPatientRadio" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#showSubmit" text="New Patient" />
                         <Label layoutX="14.0" layoutY="79.0" prefHeight="22.0" prefWidth="134.0" text="Patient Information">
                            <font>

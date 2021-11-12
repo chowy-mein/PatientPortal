@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-
-import javax.swing.*;
 import java.io.IOException;
 import java.sql.*;
 
@@ -16,7 +14,7 @@ public class nurseMain {
 
     //add labels
     @FXML
-    private Label ageLabel, bpLabel, bpUnitsLabel;
+    private Label ageLabel, bpLabel;
 
     //add TextFields
     @FXML
@@ -41,6 +39,7 @@ public class nurseMain {
     boolean lessThan = false;
 
     int chosenPatientID = 0;
+    int lbskg = 0;
 
     String thisFirstName, thisLastName;
 
@@ -74,10 +73,28 @@ public class nurseMain {
 
     }
 
+    public void turnoffKg(ActionEvent actionEvent)
+    {
+
+        kgRadio.setSelected(false);
+
+    }
+
+    public void turnoffLbs(ActionEvent actionEvent)
+    {
+
+        lbsRadio.setSelected(false);
+
+    }
+
     public void showSubmit(ActionEvent actionEvent)
     {
 
         submitButton.setVisible(true);
+        returnPatientRadio.setSelected(false);
+        patientList.getItems().clear();
+        clearItems();
+
 
     }
 
@@ -185,12 +202,20 @@ public class nurseMain {
             Connection connectDb = connectNow.getConnection();
 
 
+            if (kgRadio.isSelected())
+            {
+
+                lbskg = 1;
+
+            }
+
+
 
 
             try {
 
                 String addInfo = "INSERT INTO patientvitals (patientID, firstname, lastname, weight, heightf, heighti, temp," +
-                        "age, bloodp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                        "age, bloodp, lbskg) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 
 
@@ -204,9 +229,10 @@ public class nurseMain {
                 statement.setInt(count++, Integer.parseInt(weightInput.getText()));
                 statement.setInt(count++, Integer.parseInt(heightFeetInput.getText()));
                 statement.setInt(count++, Integer.parseInt(heightInchesInput.getText()));
-                statement.setInt(count++, Integer.parseInt(tempInput.getText()));
-                statement.setInt(count++, Integer.parseInt(tempInput.getText()));
+                statement.setDouble(count++, Double.parseDouble(tempInput.getText()));
+                statement.setInt(count++, Integer.parseInt(ageInput.getText()));
                 statement.setInt(count++, Integer.parseInt(bpInput.getText()));
+                statement.setInt(count++, lbskg);
 
                 statement.executeUpdate();
 
@@ -359,24 +385,7 @@ public class nurseMain {
                 statement1.executeUpdate();
 
                 //clear tabs and show update message
-                firstNameInput.setText("");
-                lastNameInput.setText("");
-                heightInchesInput.setText("");
-                heightFeetInput.setText("");
-                bpInput.setText("");
-                bpInput.setVisible(false);
-                ageInput.setText("");
-                ageInput.setVisible(false);
-                bpLabel.setVisible(false);
-                ageLabel.setVisible(false);
-                tempInput.setText("");
-                yesButton.setSelected(false);
-                noButton.setSelected(false);
-                weightInput.setText("");
-                lbsRadio.setSelected(false);
-                kgRadio.setSelected(false);
-                patientList.getItems().clear();
-                returnPatientRadio.setSelected(false);
+                clearItems();
                 newPatientRadio.setSelected(false);
 
 
@@ -460,7 +469,7 @@ public class nurseMain {
                 int age = 0;
                 int temp = 0;
                 int bloodp = 0;
-                int lbskg = 0;
+                lbskg = 0;
 
                 PreparedStatement pst2 = connectDb.prepareStatement(gatherPatientVitals);
                 ResultSet patientVitals = pst2.executeQuery();
@@ -538,6 +547,31 @@ public class nurseMain {
 
         }
 
+
+
+    }
+
+    public void clearItems()
+    {
+
+        //clear tabs and show update message
+        firstNameInput.setText("");
+        lastNameInput.setText("");
+        heightInchesInput.setText("");
+        heightFeetInput.setText("");
+        bpInput.setText("");
+        bpInput.setVisible(false);
+        ageInput.setText("");
+        ageInput.setVisible(false);
+        bpLabel.setVisible(false);
+        ageLabel.setVisible(false);
+        tempInput.setText("");
+        yesButton.setSelected(false);
+        noButton.setSelected(false);
+        weightInput.setText("");
+        lbsRadio.setSelected(false);
+        kgRadio.setSelected(false);
+        returnPatientRadio.setSelected(false);
 
 
     }
@@ -682,6 +716,9 @@ public class nurseMain {
             }
 
             chosenPatientID = chosenID;
+
+            nurseBodyArea.setText("");
+
         }
         catch (Exception e)
         {
