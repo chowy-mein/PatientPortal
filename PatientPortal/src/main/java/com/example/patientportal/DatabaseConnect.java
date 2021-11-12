@@ -11,7 +11,7 @@ public class DatabaseConnect {
 
         String dbName = "patientportalinfo";
         String dbUser = "root";
-        String dbPass = "mashinhust12";
+        String dbPass = "mashinhust12"; // OMG WHY IS MARK SO COOL!!
 
         String url = "jdbc:mysql://localhost/" + dbName;
 
