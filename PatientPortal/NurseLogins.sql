@@ -1,7 +1,7 @@
 use patientportalinfo;
 
 SELECT * FROM nurselogins;
-
+--Set initial nursing staff
 INSERT INTO nurselogins
 (nurseID, username, password, firstname, lastname)
 VALUES (null, "BestNurse", "NurseBest", "Tanishq", "Mor"),
