@@ -42,6 +42,7 @@ public class createAccount {
 
     }
 
+    //Function allows user to create new account by connecting them to the Database
     public void createAccount(ActionEvent actionEvent) throws SQLException, IOException {
 
 
@@ -59,7 +60,7 @@ public class createAccount {
             String query = "INSERT INTO patientlogins (patientID, username, password, firstname, lastname, phonenumber, medh, imm, insurance) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connectDb.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-
+            //The information input by the user is stored and connected to the database
             int count = 1;
             statement.setString(count++, null);
             statement.setString(count++, usernameField.getText());
