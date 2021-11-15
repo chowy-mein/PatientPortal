@@ -7,29 +7,30 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 
 
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
+/*
+    This is the page for the nurse to input their login credentials. This page will show input 
+    textfields for the nurse’s username and password. Once the nurse has inputted their credentials 
+    they will be authenticated by looking at the database. Once authenticated they would be redirected 
+    to the nurse main page.
+*/
 
 public class nurseLoginSelection {
 
     @FXML
     private MenuItem nurseExitButton, backItem;
-
     @FXML //text area and password objects
     private TextField nurseUsernameInput;
     @FXML
     private PasswordField nursePasswordInput;
-
     @FXML
     private Label successLabel; //label for incorrect password or success
-
     @FXML
     private Button nurseLoginButton;
-
+    
     public void exitProgram(ActionEvent actionEvent) {
 
         Platform.exit();
@@ -87,7 +88,6 @@ public class nurseLoginSelection {
 
                 }
 
-
             }
 
         } catch (Exception e) {
@@ -96,9 +96,6 @@ public class nurseLoginSelection {
             e.getCause();
 
         }
-
-
-
 
     }
 
