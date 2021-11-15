@@ -9,7 +9,13 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.*;
-
+/*
+    This is the page for the patient to input their login credentials. This page will show 
+    input textfields for the patient’s username and password. Once the patient has inputted 
+    their credentials they will be authenticated by looking at the database. Once authenticated 
+    they would be redirected to the patient main page. If they don't have an account they can 
+    create one by clicking on the create account button.
+*/
 
 public class patientLoginSelection {
 
